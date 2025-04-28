@@ -1,0 +1,119 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>ثبت نام</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" slot="end">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8">
+        <div class="avatar">
+          <img src="../../assets/images/istockphoto6.jpg" alt="Avatar">
+        </div>
+
+
+        <div class="form">
+          <h2>فرم ثبت نام</h2>
+          <form id="form2" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+
+            <div class="text-end position-relative">
+              <label class="form-check-label mb-1 text-end pe-2" for="username">
+                <i class="bi bi-telephone-fill"></i>
+                <span class="text-gray"> نام کاربری</span>
+              </label>
+              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
+                     formControlName="username"
+              id="username">
+              <div
+                *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
+                class="alert">
+                <div class="text-center" *ngIf="registerForm.get('username')?.hasError('required')">
+                  <small>وارد کردن نام کاربری الزامی است </small>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-end position-relative">
+              <label class="form-check-label mb-1 text-end pe-2" for="email">
+                <i class="bi bi-telephone-fill"></i>
+                <span class="text-gray"> شماره موبایل</span>
+              </label>
+              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
+                     formControlName="email"
+              id="email">
+              <div
+                *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
+                class="alert">
+                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('required')">
+                  <small>وارد کردن موبایل الزامی است </small>
+                </div>
+                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('minLength')">
+                  <small>شماره موبایل باید حداقل 11 رقم باشد.</small>
+                </div>
+                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('maxLength')">
+                  <small>شماره موبایل باید حداکثر 11 رقم باشد.</small>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="text-end position-relative">
+              <label class="form-check-label mb-1 text-end pe-2" for="address">
+                <i class="bi bi-telephone-fill"></i>
+                <span class="text-gray"> آدرس </span>
+              </label>
+              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
+                     formControlName="address"
+              id="address">
+              <div
+                *ngIf="registerForm.get('address')?.invalid && (registerForm.get('address')?.dirty || registerForm.get('address')?.touched)"
+                class="alert">
+                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('required')">
+                  <small>وارد کردن آدرس الزامی است </small>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="text-end">
+              <label class="form-check-label mb-1 text-end pe-2 pr-3" for="password">
+                <i class="bi bi-key-fill"></i>
+                <span class="text-gray pe-2">رمز عبور</span>
+              </label>
+              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5"
+                     formControlName="password">
+            </div>
+
+            <div class="text-end">
+              <label class="form-check-label mb-1 text-end pe-2 pr-3" for="">
+                <i class="bi bi-key-fill"></i>
+                <span class="text-gray pe-2"> نوع کاربر </span>
+              </label>
+              <!--              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5"-->
+              <!--                formControlName="Password">-->
+            </div>
+
+            <div class="ion-grid">
+              <div class="ion-row">
+                <ion-col size="12">
+                  <label for="optiona">مشتری</label>
+                  <input (click)="checkType('customer')" class="mx-3" type="radio" name="options1" id="optiona">
+                </ion-col>
+                <ion-col size="12">
+                  <label for="optionb">فروشنده</label>
+                  <input (click)="checkType('seller')" class="mx-3" type="radio" name="options1" id="optionb">
+                </ion-col>
+              </div>
+            </div>
+
+            <!--            <p class="text-success" (click)="changToLogin()"><a> قبلا ثبت نام کرده ام </a></p>-->
+            <button type="submit" class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نام</button>
+          </form>
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

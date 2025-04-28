@@ -1,0 +1,191 @@
+<!--<ion-header [translucent]="true">-->
+<!--  <ion-toolbar>-->
+<!--    <ion-title>customer-tab2</ion-title>-->
+<!--  </ion-toolbar>-->
+<!--</ion-header>-->
+
+<!--<ion-content [fullscreen]="true">-->
+<!--  <ion-header collapse="condense">-->
+<!--    <ion-toolbar>-->
+<!--      <ion-title size="large">customer-tab2</ion-title>-->
+<!--    </ion-toolbar>-->
+<!--  </ion-header>-->
+<!--</ion-content>-->
+
+
+<!--<ion-header [translucent]="true">-->
+<!--  <ion-toolbar>-->
+<!--    <ion-title>-->
+<!--      Tab 2-->
+<!--    </ion-title>-->
+<!--  </ion-toolbar>-->
+<!--</ion-header>-->
+
+<!--<ion-content [fullscreen]="true">-->
+<!--  <ion-header collapse="condense">-->
+<!--    <ion-toolbar>-->
+<!--      <ion-title size="large">Tab 2</ion-title>-->
+<!--    </ion-toolbar>-->
+<!--  </ion-header>-->
+
+<!--  <app-explore-container name="Tab 2 page"></app-explore-container>-->
+<!--</ion-content>-->
+
+
+<ion-header id="main-content">
+  <ion-toolbar color="b" class="header-gold">
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <h6>
+      WholeSell Gold
+    </h6>
+  </ion-toolbar>
+</ion-header>
+
+
+<!-- <app-sidenav [id]="recived_id">
+</app-sidenav> -->
+
+
+<ion-content>
+  <!-- <ion-button id="open-modal" expand="block">Open</ion-button> -->
+  <!-- <p>{{ message }}</p> -->
+  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()"> لغو</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true"> تایید</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <form [formGroup]="createTransactionForm" (ngSubmit)="onTransactionSubmit()">
+          <ion-item>
+            <ion-input label="وزن " (ionInput)="changePrice($event)" label-placement="floating" fill="solid"
+                       placeholder="وزن خود را وارد کنید" [value]="selectedWeight"></ion-input>
+          </ion-item>
+          <br/>
+          <ion-item>
+            <ion-input label="مبلغ" (ionInput)="changeWeight($event)" label-placement="floating" fill="outline"
+                       placeholder="مبلغ خود را وارد کنید"
+                       [value]="selectedPrice | number:'1.0'"></ion-input>
+          </ion-item>
+
+          <div class="ion-text-center mt-4">
+            <button type="submit"  class="pretty-button vibrate mx-5 rounded-3"> ثبت</button>
+          </div>
+
+        </form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <div dir="rtl">
+    <div class="price-content-header">
+      <img src="../assets/images/gold1.jpg" style="width: 25px; height: 20px;" alt="">
+      <p class="text-gold"> {{seller_name}}</p>
+
+    </div>
+    <div class="line"></div>
+
+    <ion-list *ngIf="customerseller">
+      <ion-item>
+        <ion-label>فروشنده های دیگر</ion-label>
+        <ion-select aria-label="Favorite Fruit" value="" (ionChange)="onChangeCustomerIdBySellerId($event)">
+          <ion-select-option *ngFor="let seller of customerseller['sellers']" value="{{seller.id}}">
+            {{seller.store_name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+
+    <!--    <div class=" rounded-3 mb-5 p-2">-->
+    <!--      <label> فروشنده های دیگر </label>-->
+    <!--      <select dir="rtl" class="form-select rounded-3 mb-5 p-2 "-->
+    <!--              aria-label="Default select example"-->
+    <!--              id="sellers">-->
+    <!--        <option selected>لطفا یک فروشنده را انتخاب کنید</option>-->
+    <!--&lt;!&ndash;        <option *ngFor="let seller of sellersList" value="{{seller.id}}"> {{seller.store_name}} </option>&ndash;&gt;-->
+    <!--      </select>-->
+    <!--    </div>-->
+
+    <div class="img-bars">
+      <img src="../assets/images/gold6.png" style="width:300px; height: 130px;" alt="">
+    </div>
+
+    <hr>
+    <div class="line2"></div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeMd="4">
+          <ion-card class="gold-date">
+            <ion-card-header>
+              <div>
+                <p> تاریخ: </p>
+              </div>
+              <div>
+                <p *ngIf="gold_price2">
+                  {{date.date}}
+                </p>
+              </div>
+            </ion-card-header>
+
+            <ion-card-header>
+
+              <div>
+                <p> ساعت: </p>
+              </div>
+              <div>
+                <p *ngIf="gold_price2">
+                  {{time.time}}
+                </p>
+              </div>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+
+    <div class="price-content-button">
+
+      <div class="buyandsell">
+        <h4 *ngIf="gold_price2">
+          {{ buyPrice + latestChangeBuyPrice | number:'1.0' }}
+        </h4>
+        <div class="btn-buy" (click)="openModal('buy')">
+          خرید
+        </div>
+      </div>
+
+      <div class="buyandsell">
+        <h4 *ngIf="gold_price2">
+          {{ sellPrice + latestChangeSellPrice | number:'1.0'}}
+        </h4>
+        <div color="kk" class="btn-sell" (click)="openModal('sell')">
+          فروش
+        </div>
+      </div>
+
+    </div>
+
+
+    <!--    <div class="buyandsell">-->
+    <!--      <button class="recive-price" (click)="getGoldPrice()">-->
+    <!--        دریافت قیمت-->
+    <!--      </button>-->
+    <!--    </div>-->
+  </div>
+
+</ion-content>
+
+
+<!--          <ion-input label="مبلغ خود را وارد کنید" labelPlacement="stacked" type="text" [(ngModel)]="name"></ion-input>-->
