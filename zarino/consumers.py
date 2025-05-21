@@ -114,28 +114,60 @@ class PriceConsumer(AsyncWebsocketConsumer):
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
+    # async def receive1(self, text_data=None, bytes_data=None):
+    #     data = json.loads(text_data)
+    #     print("data in receive is: ", data)
+    #     seller_id = data["seller_id"]  # دریافت شناسه فروشنده
+    #     new_price = data["price"]
+    #     transaction_type = data.get("transactionType")
+    #     print("i am in receive", "seller_id in receive is: ", seller_id)
+    #     # استفاده از تابع async برای ذخیره داده در پایگاه داده
+    #     await self.update_latest_price(seller_id, new_price, transaction_type)
+    #
+    #     # ارسال داده به گروه مربوطه
+    #     await self.channel_layer.group_send(
+    #         self.group_name,
+    #         {
+    #             "type": "send_price_update",
+    #             "seller_id": seller_id,
+    #             "price": new_price,
+    #             "transaction_type": transaction_type
+    #         },
+    #     )
+
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
         print("data in receive is: ", data)
 
-        seller_id = data["seller_id"]  # دریافت شناسه فروشنده
-        new_price = data["price"]
-        transaction_type = data.get("transactionType")
-        print("i am in receive", "seller_id in receive is: ", seller_id)
+        message_type = data.get("message_type")
 
-        # استفاده از تابع async برای ذخیره داده در پایگاه داده
-        await self.update_latest_price(seller_id, new_price, transaction_type)
+        if message_type == "price":
+            seller_id = data["seller_id"]
+            new_price = data["price"]
+            transaction_type = data.get("transactionType")
 
-        # ارسال داده به گروه مربوطه
-        await self.channel_layer.group_send(
-            self.group_name,
-            {
-                "type": "send_price_update",
-                "seller_id": seller_id,
-                "price": new_price,
-                "transaction_type": transaction_type
-            },
-        )
+            await self.update_latest_price(seller_id, new_price, transaction_type)
+
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type": "send_price_update",
+                    "seller_id": seller_id,
+                    "price": new_price,
+                    "transaction_type": transaction_type
+                },
+            )
+
+        elif message_type == "store_status":
+            status = data["status"]
+            await self.update_store_status(self.seller_id, status)
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    "type": "send_status_store",
+                    "status": status
+                }
+            )
 
     @database_sync_to_async
     def update_latest_price(self, seller_id, new_price, transaction_type):
@@ -163,12 +195,17 @@ class PriceConsumer(AsyncWebsocketConsumer):
             print(f"Created new record: {new_record}")
         print('i am in @update_latest_price', 'seller_id is: ', seller_id)
 
-        #
-        #
-        # LatestGoldPrice.objects.update_or_create(
-        #     seller_id=seller_id,
-        #     defaults={"price": new_price, "transaction_type": transaction_type}
-        # )
+    @database_sync_to_async
+    def update_store_status(self, seller_id, status):
+        from sellers.models import Seller
+
+        try:
+            seller = Seller.objects.get(id=seller_id)
+            seller.is_open = True if status == True else False
+            seller.save()
+            print(f"Store status updated: {seller.store_name} is now {'OPEN' if seller.is_open else 'CLOSED'}")
+        except Seller.DoesNotExist:
+            print("Seller not found.")
 
     async def send_price_update(self, event):
         print("i am in send_price_update consumer")
@@ -177,7 +214,19 @@ class PriceConsumer(AsyncWebsocketConsumer):
 
         await self.send(text_data=json.dumps(
             {
+                "message_type": "price",
                 "price": price,
                 "transaction_type": transaction_type
+            }
+        ))
+
+    async def send_status_store(self, event):
+        print("i am in send_status_store consumer")
+        status = event["status"]  # open یا close
+
+        await self.send(text_data=json.dumps(
+            {
+                "message_type": "store_status",
+                "status": status
             }
         ))

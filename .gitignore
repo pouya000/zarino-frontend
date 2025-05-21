@@ -59,3 +59,13 @@ pnpm-lock.yaml
 /.yarn
 /.pnpm-store
 /.cache
+
+# Ignore sqlite DB
+db.sqlite3
+
+# Ignore Angular frontend
+AngularUi/
+
+# Ignore pycache
+__pycache__/
+**/__pycache__/

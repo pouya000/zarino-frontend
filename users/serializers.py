@@ -27,7 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    customer_name = serializers.CharField(source='customer.user.username', read_only=True)
+    customer_name = serializers.CharField(source='customer.user.first_name', read_only=True)
 
     class Meta:
         model = Transaction

@@ -421,6 +421,16 @@ class LatestGoldPriceView(APIView):
         except LatestGoldPrice.DoesNotExist:
             return Response({"error": "No price data found"}, status=status.HTTP_404_NOT_FOUND)
 
+# views.py
+class SellerStatusStoreView(APIView):
+    def get(self, request, seller_id):
+        seller = get_object_or_404(Seller, id=seller_id)
+        return Response({
+            "store_name": seller.store_name,
+            "is_open": seller.is_open
+        })
+
+
 
 class TransactionSearchView(APIView):
     def get(self, request):
@@ -444,7 +454,8 @@ class TransactionSearchView(APIView):
 
         # فیلتر بر اساس نام مشتری hghjhj
         if customer_name:
-            transactions = transactions.filter(customer__user__username__iexact=customer_name)
+            transactions = transactions.filter(customer__user__first_name__iexact=customer_name)
+            print("after customer_name filter:", transactions)
 
         # فیلتر بر اساس تاریخ تراکنش
         if transaction_date:

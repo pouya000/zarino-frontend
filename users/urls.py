@@ -21,6 +21,8 @@ urlpatterns = [
     path('customer-sellers', views.CustomerSellersView.as_view(), name='Customer-sellers'),
     # path('update-price/<int:seller_id>/', views.UpdatePriceView.as_view(), name='update-price'),
     path('latest-price/<int:seller_id>/', views.LatestGoldPriceView.as_view()),
+    path('latest-status_store/<int:seller_id>/', views.SellerStatusStoreView.as_view()),
+
     path('transactions/search', views.TransactionSearchView.as_view()),
 
 
