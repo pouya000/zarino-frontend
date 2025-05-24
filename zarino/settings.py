@@ -100,8 +100,15 @@ CHANNEL_LAYERS = {
 #     }
 # }
 
+# DATABASES = {
+#     'default': dj_database_url.config(default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'))
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'))
+    'default': dj_database_url.config(
+        default='postgresql://postgres:bGxBDxOSsoXYoWUHiBiOICclzmDwfKCi@postgres.railway.internal:5432/railway',
+        conn_max_age=600
+    )
 }
 
 
