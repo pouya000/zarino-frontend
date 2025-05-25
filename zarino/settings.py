@@ -159,8 +159,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000'
 ]
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.11']
-
+# ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.11']
+ALLOWED_HOSTS = ['*']
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8100",
     "http://localhost:8101",
