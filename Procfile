@@ -1,1 +1,1 @@
-web: DJANGO_SETTINGS_MODULE=zarino.settings daphne zarino.asgi:application
+web: python manage.py migrate && daphne -b 0.0.0.0 -p 8000 zarino.asgi:application
