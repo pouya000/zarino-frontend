@@ -174,6 +174,13 @@ class LoginView(APIView):
 #         }
 #         return response
 
+
+from django.http import HttpResponse
+import os
+
+def check_env(request):
+    return HttpResponse(f"<pre>DATABASE_URL = {os.environ.get('DATABASE_URL')}</pre>")
+
 class CustomerSellersView(APIView):
     def get(self, request):
         print("i am in CustomerSellersView")

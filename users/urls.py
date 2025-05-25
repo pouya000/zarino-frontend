@@ -8,6 +8,7 @@ from . import views
 # from .views import CreateTransactionView
 
 urlpatterns = [
+    path('check-env/', views.check_env),
     path('register', views.RegisterView.as_view()),
     path('login', views.LoginView.as_view()),
     path('user', views.UserView.as_view()),
