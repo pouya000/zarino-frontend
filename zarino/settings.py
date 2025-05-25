@@ -104,13 +104,22 @@ CHANNEL_LAYERS = {
 #     'default': dj_database_url.config(default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'))
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:bGxBDxOSsoXYoWUHiBiOICclzmDwfKCi@postgres.railway.internal:5432/railway',
-        conn_max_age=600
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://postgres:bGxBDxOSsoXYoWUHiBiOICclzmDwfKCi@postgres.railway.internal:5432/railway',
+#         conn_max_age=600
+#     )
+# }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
 
+DATABASES = {
+    'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
