@@ -1,7 +1,0 @@
-{
-  "name": "BuaAndSellGold",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular-standalone"
-}
