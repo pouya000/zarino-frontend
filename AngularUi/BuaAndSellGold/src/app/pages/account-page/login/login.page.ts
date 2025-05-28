@@ -7,6 +7,7 @@ import {UserService} from "../../../sevices/user.service";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
 import {NavController} from "@ionic/angular";
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-login',
@@ -35,6 +36,8 @@ export class LoginPage implements OnInit {
     })
 
   }
+
+  baseUrl = environment.apiUrl
 
   loginForm: FormGroup;
 
@@ -78,7 +81,7 @@ export class LoginPage implements OnInit {
   }
 
   checkAuthStatus(): Observable<any> {
-    return this.http.get("http://localhost:8000/api/user", {withCredentials: true})
+    return this.http.get(`${this.baseUrl}`, {withCredentials: true})
   }
 
 
@@ -95,7 +98,9 @@ export class LoginPage implements OnInit {
                 this.userservice.userSubject.next(user);
               })
               // this.navCtrl.navigateRoot('/seller/tabs');
-                 setTimeout(() => {this.router.navigateByUrl('/seller');}, 1000)
+              setTimeout(() => {
+                this.router.navigateByUrl('/seller');
+              }, 1000)
 
             } else if (result.jwt && result['user']['user_type'] == 'customer') {
               this.userservice.checkAuthStatus().subscribe((user: any) => {
