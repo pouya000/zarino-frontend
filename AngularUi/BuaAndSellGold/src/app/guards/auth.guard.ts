@@ -4,6 +4,7 @@ import {UserService} from "../sevices/user.service";
 import {FormBuilder} from "@angular/forms";
 import {inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 export const authGuard: CanActivateFn = (route, state) => {
 
@@ -21,7 +22,10 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const http = inject(HttpClient);
   const router = inject(Router);
-  const baseUrl = "http://localhost:8000/api";
+  // const baseUrl = "http://localhost:8000/api";
+
+  const baseUrl = environment.apiUrl
+
 
   return http.get(`${baseUrl}/user`, {withCredentials: true}).pipe(
     map(() => {
