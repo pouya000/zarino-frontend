@@ -20,7 +20,7 @@ export class WebSocketService {
 
 
   connect(sellerId: number) {
-    this.socket$ = webSocket(`wss://zarino-backend.onrender.com/api/ws/price/${sellerId}/`);
+    this.socket$ = webSocket(`wss://zarino-backend.onrender.com/ws/price/${sellerId}/`);
     // this.socket$ = webSocket(`ws://${this.baseUrl}/ws/price/${sellerId}/`);
     this.socket$.subscribe(
       (message: any) => {
