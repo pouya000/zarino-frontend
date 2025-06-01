@@ -55,7 +55,7 @@ import {WebSocketService} from "../sevices/websocket.service";
   providers: [DecimalPipe]
 })
 
-export class Tab2Page implements OnInit{
+export class Tab2Page implements OnInit {
 
   http = inject(HttpClient);
 
@@ -161,6 +161,8 @@ export class Tab2Page implements OnInit{
     this.API_KEY_GOLD = this.userservice.API_KEY_GOLD;
 
     this.getGoldPrice();
+
+    this.getPrice();
 
     // دریافت آخرین قیمت از API
     this.latestChangePrice();
@@ -284,7 +286,7 @@ export class Tab2Page implements OnInit{
   getPrice() {
     setInterval(() => {
       this.getGoldPrice();
-    }, 50000);
+    }, 30000);
   }
 
   addToPrice(item: string) {

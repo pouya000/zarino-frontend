@@ -141,6 +141,8 @@ export class CustomerTab2Page implements OnInit {
 
     this.getGoldPrice();
 
+    this.getPrice();
+
     this.customerSellers();
 
     this.getSellerById();
@@ -171,7 +173,7 @@ export class CustomerTab2Page implements OnInit {
     this.wsService.getLatestStoreStatus(this.sellerId)
       .subscribe((response: any) => {
         console.log("status in customer tab2 is: ", response.is_open);
-        this.storeStatus =  response.is_open;
+        this.storeStatus = response.is_open;
       });
 
     this.wsService.getPriceUpdates().subscribe((newPrice) => {
@@ -263,6 +265,14 @@ export class CustomerTab2Page implements OnInit {
 
   }
 
+
+  getPrice() {
+    // this.ngOnInit();
+    setInterval(() => {
+      this.getGoldPrice();
+    }, 30000);
+  }
+
   getGoldPrice() {
     this.http.get(this.BASE_URL,).subscribe((data: any) => {
       this.gold_price2 = data;
@@ -278,13 +288,6 @@ export class CustomerTab2Page implements OnInit {
       // console.log("price is updated _____________");
     })
   };
-
-  getPrice() {
-    // this.ngOnInit();
-    setInterval(() => {
-      this.getGoldPrice();
-    }, 3000);
-  }
 
   changePrice1(event: any) {
     const value = event.target.value;
