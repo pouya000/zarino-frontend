@@ -9,6 +9,17 @@
 
 
 <ion-content class="ion-padding">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      refreshingSpinner="circles"
+      pullingText="برای به‌روزرسانی بکشید"
+      refreshingText="در حال به‌روزرسانی...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
   <!--  Search Box-->
   <ion-grid>
     <ion-row>
@@ -84,7 +95,7 @@
     <ng-template>
       <ion-header>
         <ion-toolbar>
-          <ion-title>همه داد و ستد های من </ion-title>
+          <ion-title>همه داد و ستد های من</ion-title>
           <ion-buttons slot="end">
             <ion-button (click)="setOpen(false)">بستن</ion-button>
           </ion-buttons>
