@@ -66,6 +66,17 @@ export class CustomerTab3Page implements OnInit {
 
   }
 
+  doRefresh(event: any) {
+    console.log('Pull event detected. Refreshing...');
+
+    // this.getGoldPrice();
+
+    setTimeout(() => {
+      event.target.complete(); // اتمام انیمیشن رفرش
+    }, 1000);
+  }
+
+
   customTheme: Partial<IDatepickerTheme> = {
     selectedBackground: '#D68E3A',
     selectedText: '#FFFFFF',
