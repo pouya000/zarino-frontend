@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://127.0.0.1:8000/api',
+  apiUrl: 'http://localhost:8000/api',
+  wsProtocol: 'ws://localhost:8000',
   API_KEY_GOLD: 'freej2vNlTDpSCNiIxUgNttprw9MAwgO',
   GET_BASE_URL_GOLD: '/api/FreeTsetmcBourseApi/Api_Free_Gold_Currency.json'
 };

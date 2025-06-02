@@ -18,10 +18,12 @@ export class WebSocketService {
   private priceSubject = new Subject<number>();
   private storeStatusSubject = new Subject<'open' | 'close'>();
 
+  wsProtocol = environment.wsProtocol;
 
   connect(sellerId: number) {
-    this.socket$ = webSocket(`wss://zarino-backend.onrender.com/ws/price/${sellerId}/`);
-    // this.socket$ = webSocket(`ws://${this.baseUrl}/ws/price/${sellerId}/`);
+    // this.socket$ = webSocket(`wss://zarino-backend.onrender.com/ws/price/${sellerId}/`);
+    this.socket$ = webSocket(`${this.wsProtocol}/ws/price/${sellerId}/`);
+    // this.socket$ = webSocket(`ws://localhost:8000/ws/price/${sellerId}/`);
     this.socket$.subscribe(
       (message: any) => {
         if (message.message_type === 'price' && message.price !== undefined) {

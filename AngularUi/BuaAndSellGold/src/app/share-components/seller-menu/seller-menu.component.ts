@@ -1,9 +1,10 @@
 import {Component, OnInit, ViewChild, AfterViewInit} from '@angular/core';
+// import {MenuController} from '@ionic/angular';
 import {
   IonApp, IonRouterOutlet, IonIcon, IonMenu,
   IonContent, IonLabel, IonButton, IonList,
   IonItem, IonHeader, IonToolbar, IonTitle,
-  IonSplitPane, IonToggle
+  IonSplitPane, IonToggle, MenuController
 } from '@ionic/angular/standalone';
 import {Router, RouterModule} from "@angular/router";
 import {UserService} from "../../sevices/user.service";
@@ -19,6 +20,7 @@ import {WebSocketService} from "../../sevices/websocket.service";
 export class SellerMenuComponent implements OnInit, AfterViewInit {
 
   constructor(private userservice: UserService,
+              private menuCtrl: MenuController,
               private wsService: WebSocketService,
               private router: Router) {
 
@@ -99,6 +101,11 @@ export class SellerMenuComponent implements OnInit, AfterViewInit {
     'address': ''
   };
 
+  closeIonButton() {
+    this.menuCtrl.close('start')   // 'end' نام سمتی‌ست که در <ion-menu side="end"> دادید
+      .then(() => {
+      });
+  }
 
   logout() {
     this.userservice.logout()
@@ -106,7 +113,14 @@ export class SellerMenuComponent implements OnInit, AfterViewInit {
         console.log('res og logout: ', response);
         localStorage.removeItem('customer_id');
         localStorage.removeItem('seller_id');
-        this.router.navigate(['/login']);
+        this.menuCtrl.close('start')   // 'end' نام سمتی‌ست که در <ion-menu side="end"> دادید
+          .then(() => {
+            console.log('xxxxxxxxx: ');
+
+            // بعد از بستن منو، کار هدایت به صفحه لاگین را انجام بده:
+            this.router.navigate(['/login']);
+          });
+        // this.router.navigate(['/login']);
       });
 
 
