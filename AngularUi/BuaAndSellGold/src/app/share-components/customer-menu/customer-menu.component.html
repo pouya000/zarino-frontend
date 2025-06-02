@@ -26,19 +26,19 @@
     </div>
 
     <ion-list class="menu-items" dir="rtl" lines="none">
-      <ion-item>
+      <ion-item button (click)="closeIonButton()" menuClose>
         <ion-icon name="pencil-outline"></ion-icon>
         ویرایش پروفایل
       </ion-item>
-      <ion-item [routerLink]="['/add-seller']">
+      <ion-item button (click)="closeIonButton()" [routerLink]="['/add-seller']" menuClose>
         <ion-icon name="add-circle-outline"></ion-icon>
         افزودن
       </ion-item>
-      <ion-item [routerLink]="['/change-seller']">
+      <ion-item button (click)="closeIonButton()" [routerLink]="['/change-seller']" menuClose>
         <ion-icon name="storefront-outline"></ion-icon>
         فروشنده های دیگر
       </ion-item>
-      <ion-item (click)="logout()">
+      <ion-item button (click)="logout()" menuClose>
         <ion-icon name="log-out-outline"></ion-icon>
         خروج
       </ion-item>

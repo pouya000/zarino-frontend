@@ -37,11 +37,8 @@
     <div class="header-content ion-text-center">
       <img src="../assets/images/istockphoto4.jpg" style="width: 100px; height: 100px" alt="">
       <ion-label>
-        <!--          <h2><strong>{{receive_user}} </strong></h2>-->
         <h3><strong class="text-white mb-3 pb-3">{{receive_user.firstName}} </strong></h3>
         <h5 class="text-white">{{receive_user.address}} </h5>
-        <!--        <h3><strong class="text-white mb-3 pb-3"> احمد کریمی </strong></h3>-->
-        <!--        <h5 class="text-white"> بازار طلا فروشان مغازه کریمی</h5>-->
       </ion-label>
     </div>
     <div class="action-button">
@@ -59,22 +56,20 @@
         وضعیت مغازه
         <ion-icon name="storefront-outline"></ion-icon>
       </ion-item>
-      <ion-item>
+      <ion-item button (click)="closeIonButton()">
         <ion-icon name="people-circle-outline"></ion-icon>
         مشتری ها
       </ion-item>
-      <ion-item [routerLink]="['/add-seller']">
+      <ion-item button (click)="closeIonButton()" menuClose [routerLink]="['/add-seller']">
         <ion-icon name="add-circle-outline"></ion-icon>
         افزودن
       </ion-item>
-      <!--      <ion-item [routerLink]="['/change-seller']">-->
-      <!--        <ion-icon name="storefront-outline"></ion-icon>-->
-      <!--        فروشنده های دیگر-->
-      <!--      </ion-item>-->
-      <ion-item (click)="logout()">
+
+      <ion-item button (click)="logout()" menuClose>
         <ion-icon name="log-out-outline"></ion-icon>
         خروج
       </ion-item>
+
     </ion-list>
   </ion-content>
 </ion-menu>
