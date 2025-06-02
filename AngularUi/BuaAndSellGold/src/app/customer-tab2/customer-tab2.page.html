@@ -10,13 +10,17 @@
 </ion-header>
 
 
-<!-- <app-sidenav [id]="recived_id">
-</app-sidenav> -->
-
-
 <ion-content>
-  <!-- <ion-button id="open-modal" expand="block">Open</ion-button> -->
-  <!-- <p>{{ message }}</p> -->
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      refreshingSpinner="circles"
+      pullingText="برای به‌روزرسانی بکشید"
+      refreshingText="در حال به‌روزرسانی...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>

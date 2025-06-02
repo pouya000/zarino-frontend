@@ -10,6 +10,7 @@ import {goldPrice2} from "../models/goldPrice.interface";
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {catchError, of} from "rxjs";
+import { IonicModule } from '@ionic/angular';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar,
   IonModal,
@@ -32,15 +33,7 @@ import {AlertController} from "@ionic/angular";
   templateUrl: './customer-tab2.page.html',
   styleUrls: ['./customer-tab2.page.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    IonModal,
-    IonAvatar,
-    IonButton,
-    IonButtons,
-    IonItem,
-    IonImg,
-    IonLabel,
-    IonList],
+  imports: [IonicModule,ReactiveFormsModule, CommonModule, FormsModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DecimalPipe]
 })
@@ -182,6 +175,19 @@ export class CustomerTab2Page implements OnInit {
     });
 
   }
+
+
+  doRefresh(event: any) {
+    console.log('Pull event detected. Refreshing...');
+
+    // مثلا دوباره گرفتن قیمت از سرور
+    this.getGoldPrice();
+
+    setTimeout(() => {
+      event.target.complete(); // اتمام انیمیشن رفرش
+    }, 1000); // این زمان اختیاری است
+  }
+
 
   latestChangePrice() {
     this.sellerId = Number(localStorage.getItem('seller_id'));
