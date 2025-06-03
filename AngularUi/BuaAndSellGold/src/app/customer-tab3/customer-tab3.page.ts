@@ -137,7 +137,7 @@ export class CustomerTab3Page implements OnInit {
       .set('seller_id', sellerId)
       .set('customer_name', customerName || '')
       .set('transaction_date', transactionDate || '');
-    return this.http.get('${this.baseUrl}/transactions/search', {params})
+    return this.http.get(`${this.baseUrl}/transactions/search`, {params})
       .subscribe((res: any) => {
         console.log('allTransactions search:', res);
         if (res.length == 0) {
@@ -180,7 +180,7 @@ export class CustomerTab3Page implements OnInit {
     const params = new HttpParams()
       .set('seller_id', seller_id)
       .set('customer_name', this.receive_user || '')
-    return this.http.get('${this.baseUrl}/transactions/search', {params})
+    return this.http.get(`${this.baseUrl}/transactions/search`, {params})
       .subscribe((res: any) => {
         // console.log("result of total transactions: ", res);
         if (res.length > 0) {
