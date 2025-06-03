@@ -21,6 +21,7 @@ import {NgPersianDatepickerModule} from 'ng-persian-datepicker';
 // import { DatepickerConfig } from 'ng-persian-datepicker';
 import {IDatepickerTheme} from 'ng-persian-datepicker';
 import {Jalali} from 'jalali-ts';
+import {environment} from "../../environments/environment";
 
 
 // export const darkTheme: IDatepickerTheme = {
@@ -103,6 +104,8 @@ export class Tab3Page {
     console.log("slidesPerView ...", this.slidesPerView);
 
   }
+
+  baseUrl = environment.apiUrl
 
   dateValue = new FormControl();
 
@@ -187,7 +190,7 @@ export class Tab3Page {
       .set('seller_id', sellerId)
       .set('customer_name', customerName || '')
       .set('transaction_date', transactionDate || '');
-    return this.http.get('http://localhost:8000/api/transactions/search', {params})
+    return this.http.get(`${this.baseUrl}/transactions/search`, {params})
       .subscribe((res: any) => {
         console.log('allTransactions search:', res);
         if (res.length == 0) {
