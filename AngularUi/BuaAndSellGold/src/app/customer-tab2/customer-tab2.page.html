@@ -21,40 +21,92 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+  <!--  <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)" #modal>-->
+  <!--    <ng-template>-->
+  <!--      <ion-header>-->
+
+  <!--        <ion-toolbar>-->
+  <!--          <ion-buttons slot="start">-->
+  <!--            <ion-button (click)="cancel()"> لغو</ion-button>-->
+  <!--          </ion-buttons>-->
+  <!--          <ion-buttons slot="end">-->
+  <!--            <ion-button (click)="confirm()" [strong]="true"> تایید</ion-button>-->
+  <!--          </ion-buttons>-->
+  <!--        </ion-toolbar>-->
+  <!--      </ion-header>-->
+  <!--      <ion-content class="ion-padding">-->
+  <!--        <form [formGroup]="createTransactionForm" (ngSubmit)="onTransactionSubmit()">-->
+  <!--          <ion-item>-->
+  <!--            <ion-input label="وزن " (ionInput)="changePrice($event)" label-placement="floating" fill="solid"-->
+  <!--                       placeholder="وزن خود را وارد کنید" [value]="selectedWeight"></ion-input>-->
+  <!--          </ion-item>-->
+  <!--          <br/>-->
+  <!--          <ion-item>-->
+  <!--            <ion-input label="مبلغ" (ionInput)="changeWeight($event)" label-placement="floating" fill="outline"-->
+  <!--                       placeholder="مبلغ خود را وارد کنید"-->
+  <!--                       [value]="selectedPrice | number:'1.0'"></ion-input>-->
+  <!--          </ion-item>-->
+
+  <!--          <div class="ion-text-center mt-4">-->
+  <!--            <button type="submit" class="pretty-button vibrate mx-5 rounded-3"> ثبت</button>-->
+  <!--          </div>-->
+
+  <!--        </form>-->
+  <!--      </ion-content>-->
+  <!--    </ng-template>-->
+  <!--  </ion-modal>-->
+
+  <!--  -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+  <ion-modal #modal>
     <ng-template>
       <ion-header>
-
-        <ion-toolbar>
+        <ion-toolbar color="tertiary">
+          <ion-title>{{ transactionType === 'buy' ? 'خرید طلا' : 'فروش طلا' }}</ion-title>
           <ion-buttons slot="start">
-            <ion-button (click)="cancel()"> لغو</ion-button>
+            <ion-button (click)="closeModal()">لغو</ion-button>
           </ion-buttons>
           <ion-buttons slot="end">
-            <ion-button (click)="confirm()" [strong]="true"> تایید</ion-button>
+            <ion-button (click)="submitTransaction()" [disabled]="!isFormValid()" strong>
+              ثبت
+            </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-header>
-      <ion-content class="ion-padding">
-        <form [formGroup]="createTransactionForm" (ngSubmit)="onTransactionSubmit()">
+
+      <ion-content class="ion-padding" direction="rtl">
+        <form >
+          <!-- فیلد وزن -->
           <ion-item>
-            <ion-input label="وزن " (ionInput)="changePrice($event)" label-placement="floating" fill="solid"
-                       placeholder="وزن خود را وارد کنید" [value]="selectedWeight"></ion-input>
-          </ion-item>
-          <br/>
-          <ion-item>
-            <ion-input label="مبلغ" (ionInput)="changeWeight($event)" label-placement="floating" fill="outline"
-                       placeholder="مبلغ خود را وارد کنید"
-                       [value]="selectedPrice | number:'1.0'"></ion-input>
+            <ion-label position="stacked">وزن (گرم)</ion-label>
+            <ion-input
+              type="number"
+              [(ngModel)]="formData.weight"
+              (ionInput)="onWeightInput($event)"
+              name="weight"
+              placeholder="وزن را وارد کنید"
+            ></ion-input>
           </ion-item>
 
-          <div class="ion-text-center mt-4">
-            <button type="submit" class="pretty-button vibrate mx-5 rounded-3"> ثبت</button>
-          </div>
+          <!-- فاصله -->
+          <div style="height: 16px;"></div>
 
+          <!-- فیلد مبلغ -->
+          <ion-item>
+            <ion-label position="stacked">مبلغ (تومان)</ion-label>
+            <ion-input
+              type="number"
+              [(ngModel)]="formData.amount"
+              (ionInput)="onAmountInput($event)"
+              name="amount"
+              placeholder="مبلغ را وارد کنید"
+            ></ion-input>
+          </ion-item>
         </form>
       </ion-content>
     </ng-template>
   </ion-modal>
+
 
   <div dir="rtl">
     <div class="price-content-header">

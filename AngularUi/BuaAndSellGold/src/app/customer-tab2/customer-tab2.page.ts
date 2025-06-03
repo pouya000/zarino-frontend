@@ -10,23 +10,28 @@ import {goldPrice2} from "../models/goldPrice.interface";
 import {HttpClient} from "@angular/common/http";
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import {catchError, of} from "rxjs";
-// import {IonicModule} from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 import {
   IonContent, IonHeader, IonTitle, IonToolbar,
   IonModal,
+  IonInput,
   IonAvatar,
   IonButton,
   IonButtons,
   IonItem,
   IonImg,
-  IonLabel,
+  IonLabel, AlertController,
   IonList
 } from '@ionic/angular/standalone';
 import {WebSocketService} from "../sevices/websocket.service";
-import {AlertController} from "@ionic/angular";
+// import {AlertController} from "@ionic/angular";
 
 // const BASE_URL = environment.GET_BASE_URL_GOLD;
 
+interface TransactionForm {
+  weight: number | null;
+  amount: number | null;
+}
 
 @Component({
   selector: 'app-customer-tab2',
@@ -35,6 +40,7 @@ import {AlertController} from "@ionic/angular";
   standalone: true,
   imports: [IonAvatar,
     IonModal,
+    IonInput,
     IonButton,
     IonButtons,
     IonItem,
@@ -51,7 +57,7 @@ export class CustomerTab2Page implements OnInit {
   http = inject(HttpClient);
 
   constructor(private router: Router,
-              private alertController: AlertController,
+              private alertCtrl: AlertController,
               private wsService: WebSocketService,
               private userservice: UserService,
               private fb: FormBuilder) {
@@ -73,19 +79,28 @@ export class CustomerTab2Page implements OnInit {
     this.createTransactionForm = this.fb.group({
       "customer_id": [localStorage.getItem('customer_id'), Validators.required],
       "seller_id": [localStorage.getItem('seller_id'), Validators.required],
-      "weight": ['', Validators.required],
+      "weight": [null, Validators.required],
       "price": ['', Validators.required],
       "transaction_type": ['']
 
     })
   }
 
-  @ViewChild(IonModal) modal!: IonModal;
-
+  // @ViewChild(IonModal) modal!: IonModal;
+  @ViewChild('modal', {static: true}) modal!: IonModal;
   transactionType: 'buy' | 'sell' = 'buy';
+
+  // openModal(type: 'buy' | 'sell') {
+  //   this.transactionType = type;
+  //   this.modal.present();
+  // }
 
   openModal(type: 'buy' | 'sell') {
     this.transactionType = type;
+
+    // قبل از باز کردن مودال، فرم را ریست می‌کنیم
+    this.resetFormData();
+
     this.modal.present();
   }
 
@@ -132,6 +147,83 @@ export class CustomerTab2Page implements OnInit {
   date: any;
 
   time: any;
+
+  displayAmount: string = '';
+
+  // داده‌های فرم که دو فیلد برای وزن و مبلغ دارد
+  formData: TransactionForm = {
+    weight: null,
+    amount: null
+  };
+
+  async submitTransaction() {
+    // مطمئن می‌شویم فرم مقدار دارد
+    if (!this.isFormValid()) {
+      const alert = await this.alertCtrl.create({
+        header: 'خطا',
+        message: 'لطفاً وزن و مبلغ را وارد کنید.',
+        buttons: ['باشه']
+      });
+      await alert.present();
+      return;
+    }
+
+    this.createTransactionForm.value['seller_id'] = localStorage.getItem('seller_id')
+    this.createTransactionForm.value['transaction_type'] = this.transactionType;
+    console.log("form is valid", this.createTransactionForm.value);
+    const resultcreateTransaction = await this.userservice.createTransiction(this.createTransactionForm.value)
+      .subscribe((result: any) => {
+        console.log('createTransiction ....', result);
+        // if (result.message) {
+        //   this.router.navigate(['/login']);
+        // }
+      })
+
+    // نمونهٔ یک تراکنش: (ما اینجا فقط در console می‌ریزیم؛ شما باید درخواست API بفرستی)
+    console.log('نوع تراکنش:', this.transactionType);
+    console.log('وزن وارد شده:', this.formData.weight);
+    console.log('مبلغ وارد شده:', this.formData.amount);
+
+    // TODO: در اینجا داده‌ها را به سرور یا WebSocket ارسال کن
+    // مثال فرضی:
+    // await this.myService.createTransaction({
+    //   type: this.transactionType,
+    //   weight: this.formData.weight,
+    //   amount: this.formData.amount
+    // });
+
+    // نمایش پیغام موفقیت
+    const successAlert = await this.alertCtrl.create({
+      header: 'موفقیت',
+      message: 'تراکنش با موفقیت ثبت شد.',
+      buttons: ['باشه']
+    });
+    await successAlert.present();
+
+    // سپس مودال را ببند
+    this.modal.dismiss();
+  }
+
+  isFormValid(): boolean {
+    return (
+      this.formData.weight !== null &&
+      this.formData.weight > 0 &&
+      this.formData.amount !== null &&
+      this.formData.amount > 0
+    );
+  }
+
+  resetFormData() {
+    this.formData = {
+      weight: null,
+      amount: null
+    };
+  }
+
+  closeModal() {
+    this.displayAmount = '';
+    this.modal.dismiss();
+  }
 
   ngOnInit() {
 
@@ -310,26 +402,68 @@ export class CustomerTab2Page implements OnInit {
     this.createTransactionForm.value['weight'] = value;
   }
 
-  changePrice(event: any) {
-    const value = event.target.value;
-    const basePrice = this.transactionType === 'buy'
-      ? this.buyPrice + this.latestChangeBuyPrice
-      : this.sellPrice + this.latestChangeSellPrice;
-    this.selectedPrice = value ? value * basePrice : '';
-    this.createTransactionForm.patchValue({
-      price: this.selectedPrice,
-      weight: value
-    });
+  onWeightInput(event: any) {
+    // مقدار ورودی را از event.detail.value بگیرید
+    const val = parseFloat(event.detail.value);
+
+    if (!isNaN(val)) {
+      this.formData.weight = val;
+      this.createTransactionForm.value['weight'] = val;
+      const basePrice = this.transactionType === 'buy'
+        ? this.buyPrice + this.latestChangeBuyPrice
+        : this.sellPrice + this.latestChangeSellPrice;
+      this.selectedPrice = val * basePrice;
+
+      this.formData.amount = parseFloat((val * basePrice).toFixed(0));
+      this.displayAmount = this.formData.amount.toLocaleString('fa-IR');
+    } else {
+      // اگر کاربر چیزی وارد نکرد یا پاک کرد، وزن را null کن و مبلغ را null:
+      this.formData.weight = null;
+      this.formData.amount = null;
+      this.displayAmount = '';
+    }
+    // this.createTransactionForm.value['weight'] = this.selectedWeight;
+    this.createTransactionForm.value['price'] = this.formData.amount;
   }
 
-  changeWeight(event: any) {
-    const value = event.target.value;
-    this.selectedWeight = value ? value / (this.sellPrice + this.latestChangeBuyPrice) : '';
-    this.selectedWeight = this.selectedWeight.toFixed(3)
-    this.createTransactionForm.value['weight'] = this.selectedWeight;
-    this.createTransactionForm.value['price'] = value;
 
+  onAmountInput(event: any) {
+    const val = parseFloat(event.detail.value);
+
+    if (!isNaN(val)) {
+      this.formData.amount = val;
+      // وزن را حساب کن (تقسیم بر 100)
+      this.createTransactionForm.value['price'] = val;
+      this.formData.weight = parseFloat((val / (this.sellPrice + this.latestChangeBuyPrice)).toFixed(2));
+      this.createTransactionForm.value['weight'] = this.formData.weight;
+    } else {
+      this.formData.amount = null;
+      this.formData.weight = null;
+      this.displayAmount = '';
+
+    }
   }
+
+  // changePrice(event: any) {
+  //   const value = event.target.value;
+  //   const basePrice = this.transactionType === 'buy'
+  //     ? this.buyPrice + this.latestChangeBuyPrice
+  //     : this.sellPrice + this.latestChangeSellPrice;
+  //   this.selectedPrice = value ? value * basePrice : '';
+  //   this.createTransactionForm.patchValue({
+  //     price: this.selectedPrice,
+  //     weight: value
+  //   });
+  // }
+  //
+  // changeWeight(event: any) {
+  //   const value = event.target.value;
+  //   this.selectedWeight = value ? value / (this.sellPrice + this.latestChangeBuyPrice) : '';
+  //   this.selectedWeight = this.selectedWeight.toFixed(3)
+  //   this.createTransactionForm.value['weight'] = this.selectedWeight;
+  //   this.createTransactionForm.value['price'] = value;
+  //
+  // }
 
   onChangeCustomerIdBySellerId(seller_id: any) {
     // console.log('seller_id', seller_id.target.value);
@@ -354,15 +488,15 @@ export class CustomerTab2Page implements OnInit {
   }
 
   // Alert Manager Function
-  async presentAlert() {
-    const alert = await this.alertController.create({
-      header: "نتیجه جستجو",
-      message: "موردی یافت نشد",
-      buttons: ['متوجه شدم']
-    });
-
-    await alert.present();
-  }
+  // async presentAlert() {
+  //   const alert = await this.alertController.create({
+  //     header: "نتیجه جستجو",
+  //     message: "موردی یافت نشد",
+  //     buttons: ['متوجه شدم']
+  //   });
+  //
+  //   await alert.present();
+  // }
 
 
 }
