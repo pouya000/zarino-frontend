@@ -270,7 +270,7 @@ export class CustomerTab2Page implements OnInit {
       });
 
     this.wsService.getPriceUpdates().subscribe((newPrice) => {
-      console.log("receive price is: ", newPrice)
+      console.log("receive price in getPriceUpdates: ", newPrice)
       this.latestChangePrice()
     });
 
@@ -306,8 +306,8 @@ export class CustomerTab2Page implements OnInit {
             this.latestChangeSellPrice = item.price
           }
         })
-        console.log("latestChangeSellPrice is: ", this.latestChangeSellPrice);
-        console.log("latestChangeBuyPrice is: ", this.latestChangeBuyPrice);
+        console.log("latestChangeSellPrice in function latestChangePrice: ", this.latestChangeSellPrice);
+        console.log("latestChangeBuyPrice in function latestChangePrice: ", this.latestChangeBuyPrice);
       }
     });
 
