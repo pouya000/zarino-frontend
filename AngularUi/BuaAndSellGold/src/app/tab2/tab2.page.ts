@@ -177,6 +177,13 @@ export class Tab2Page implements OnInit {
     this.wsService.connect(this.sellerId);
   }
 
+  latestStatusStore() {
+    this.sellerId = Number(localStorage.getItem('seller_id'));
+    this.wsService.getStoreStatusUpdates().subscribe((data: any) => {
+      console.log("store status in seller page ------> ", data);
+    })
+  }
+
   latestChangePrice() {
     this.sellerId = Number(localStorage.getItem('seller_id'));
     console.log("sellerId in latestChangePrice ------ ", this.sellerId);
