@@ -278,10 +278,7 @@ export class CustomerTab2Page implements OnInit {
 
   ionViewWillEnter() {
     console.log('ionViewWillEnter - هر بار که وارد تب ۲ می‌شوی اجرا می‌شود');
-    this.wsService.getPriceUpdates().subscribe((newPrice) => {
-      console.log("receive price is: ", newPrice)
-      this.latestChangePrice()
-    });
+    this.latestChangePrice();
   }
 
   doRefresh(event: any) {
