@@ -270,8 +270,8 @@ export class CustomerTab2Page implements OnInit {
       });
 
     this.wsService.getPriceUpdates().subscribe((newPrice) => {
-      console.log("receive price in getPriceUpdates: ", newPrice)
-      this.latestChangePrice()
+      console.log("receive price in getPriceUpdates: ", newPrice);
+      this.latestChangePrice();
     });
 
   }
