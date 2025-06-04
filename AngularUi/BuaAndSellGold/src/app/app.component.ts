@@ -43,15 +43,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userservice.userSubject.subscribe((user) => {
-      if (user) {
-        this.userType = user['user_type'];
-        this.receive_user = user.first_name;
-      } else {
-        this.userType = '';
-        this.receive_user = '';
-      }
-    });
+    // this.userservice.userSubject.subscribe((user) => {
+    //   if (user) {
+    //     this.userType = user['user_type'];
+    //     this.receive_user = user.first_name;
+    //   } else {
+    //     this.userType = '';
+    //     this.receive_user = '';
+    //   }
+    // });
 
 
     this.userservice.checkAuthStatus().subscribe((user: any) => {

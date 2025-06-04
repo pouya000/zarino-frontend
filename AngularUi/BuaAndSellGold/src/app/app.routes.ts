@@ -16,7 +16,7 @@ export const routes: Routes = [
   {
     path: 'customer-tabs',
     loadChildren: () => import('./customer-tabs/customer-tabs.routes').then(m => m.routes),
-    canActivate: [authGuard]
+    // canActivate: [authGuard]
   },
   {
     path: 'login',
@@ -45,17 +45,17 @@ export const routes: Routes = [
   //   canActivate: [authGuard]
   // },
 
-  {
-    path: 'customer-tab1',
-    loadComponent: () => import('./customer-tab1/customer-tab1.page').then(m => m.CustomerTab1Page)
-  },
-  {
-    path: 'customer-tab2',
-    loadComponent: () => import('./customer-tab2/customer-tab2.page').then(m => m.CustomerTab2Page),
-    canActivate: [authGuard]
-  },
-  {
-    path: 'customer-tab3',
-    loadComponent: () => import('./customer-tab3/customer-tab3.page').then(m => m.CustomerTab3Page)
-  }
+  // {
+  //   path: 'customer-tab1',
+  //   loadComponent: () => import('./customer-tab1/customer-tab1.page').then(m => m.CustomerTab1Page)
+  // },
+  // {
+  //   path: 'customer-tab2',
+  //   loadComponent: () => import('./customer-tab2/customer-tab2.page').then(m => m.CustomerTab2Page),
+  //   canActivate: [authGuard]
+  // },
+  // {
+  //   path: 'customer-tab3',
+  //   loadComponent: () => import('./customer-tab3/customer-tab3.page').then(m => m.CustomerTab3Page)
+  // }
 ];

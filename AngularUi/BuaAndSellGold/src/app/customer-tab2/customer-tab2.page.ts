@@ -67,7 +67,6 @@ export class CustomerTab2Page implements OnInit {
 
     this.userservice.user$.subscribe(user => {
       if (user) {
-        console.log("کاربر وارد شده:", user);
         this.receive_user = user;
         console.log("receive_user: ", this.receive_user);
 

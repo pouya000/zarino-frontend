@@ -80,9 +80,9 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  checkAuthStatus(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`, {withCredentials: true})
-  }
+  // checkAuthStatus(): Observable<any> {
+  //   return this.http.get(`${this.baseUrl}`, {withCredentials: true})
+  // }
 
 
   onLoginSubmit() {
@@ -91,7 +91,7 @@ export class LoginPage implements OnInit {
         .subscribe((result: any) => {
             console.log('result[\'user\'] in login ....', result['user']);
             this.user_info.push(result.user);
-            if (result.jwt && result['user']['user_type'] == 'seller') {
+            if (result['user']['user_type'] == 'seller') {
               localStorage.setItem('seller_id', result.user.seller_id);
               this.userservice.checkAuthStatus().subscribe((user: any) => {
                 console.log("data is: ", user);
@@ -102,7 +102,7 @@ export class LoginPage implements OnInit {
                 this.router.navigateByUrl('/seller');
               }, 1000)
 
-            } else if (result.jwt && result['user']['user_type'] == 'customer') {
+            } else if (result['user']['user_type'] == 'customer') {
               this.userservice.checkAuthStatus().subscribe((user: any) => {
                 console.log("data is: ", user);
                 this.userservice.userSubject.next(user);

@@ -1,156 +1,3 @@
-// import {Injectable} from '@angular/core';
-// import {loginData} from '../models/goldPrice.interface';
-// import {registerData} from '../models/goldPrice.interface';
-// import {HttpClient, HttpHeaders} from '@angular/common/http';
-// import {Router} from '@angular/router';
-// import {BehaviorSubject, Observable, Subject, catchError, delay, throwError} from 'rxjs';
-//
-// // import {Socket} from "ngx-socket-io";
-//
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class UserService {
-//
-//   constructor(private http: HttpClient,
-//               private router: Router) {
-//   }
-//
-//   // private apiUrl = 'http://localhost:8000/api/update-price';  // آدرس API برای تغییر قیمت
-//
-//
-//   // connectToSeller(sellerId: number) {
-//   //   this.socket.ioSocket.io.opts.query = {sellerId};
-//   //   this.socket.connect();
-//   // }
-//
-//
-//   // updatePrice(sellerId: number, price: number) {
-//   //   return this.http.put(`${this.apiUrl}/${sellerId}/`, {price});
-//   // }
-//
-//   // disconnect() {
-//   //   this.socket.disconnect();
-//   // }
-//
-//
-//   // private priceSubject = new BehaviorSubject<number>(0);
-//   // public price$ = this.priceSubject.asObservable();
-//   // private socket!: WebSocket;
-//
-//   private userSubject = new BehaviorSubject<any>(null);
-//   user$ = this.userSubject.asObservable();
-//   //
-//   // private _newPrice = new BehaviorSubject<number>(0);
-//   // sellerPrice = this._newPrice.asObservable();
-//   //
-//   // setPrice(value: any) {
-//   //   this._newPrice.next(value);
-//   // }
-//
-//
-//   private baseUrl = "http://localhost:8000/api/";
-//   // private baseUrl = "http://192.168.1.11:8000/api/";
-//
-//   private registerUrl = "http://localhost:8000/api/register";
-//
-//   // private loginUrl = "http://localhost:8000/api/login";
-//   private loginUrl = "http://192.168.1.11:8000/api/login";
-//
-//
-//   private userUrl = "http://localhost:8000/api/user";
-//   // private userUrl = "http://192.168.1.11:8000/api/user";
-//
-//   private createCustomerUrl = "http://localhost:8000/api/create-customer";
-//   // private createCustomerUrl = "http://192.168.1.11:8000/api/create-customer";
-//
-//
-//   private getAllSellersUrl = "http://localhost:8000/api/sellers";
-//   // private getAllSellersUrl = "http://192.168.1.11:8000/api/sellers";
-//
-//   private getSellerByIdUrl = "http://localhost:8000/api/seller/";
-//   // private getSellerByIdUrl = "http://192.168.1.11:8000/api/seller/";
-//
-//
-//   private customerSellersUrl = 'http://localhost:8000/api/customer-sellers';
-//   // private customerSellersUrl = 'http://192.168.1.11:8000/api/customer-sellers';
-//
-//
-//   private createTransectionUrl = 'http://localhost:8000/api/create-transaction';
-//   // private createTransectionUrl = 'http://192.168.1.11:8000/api/create-transaction';
-//
-//
-//   public register(userRegisterData: registerData) {
-//     return this.http.post(this.registerUrl, userRegisterData)
-//   }
-//
-//
-//   API_KEY_GOLD = 'freej2vNlTDpSCNiIxUgNttprw9MAwgO'
-//   GET_BASE_URL_GOLD = '/api/FreeTsetmcBourseApi/Api_Free_Gold_Currency.json'
-//
-//   // public getUser() {
-//   //   const token = localStorage.getItem('jwt');
-//   //
-//   //   if (!token) {
-//   //     console.error("No token found!");
-//   //     return;
-//   //   }
-//   //
-//   //   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-//   //   console.log('token ', token)
-//   //
-//   //   return this.http.get(this.userUrl, {headers})
-//   // }
-//
-//   registerUser(userData: any) {
-//     return this.http.post('http://localhost:8000/register/', userData);
-//   }
-//
-//   // public login(userData: any) {
-//   //   return this.http.post(this.loginUrl, userData)
-//   // }
-//
-//   public createCustomer(customerData: any) {
-//     return this.http.post(`${this.createCustomerUrl}`, customerData);
-//   }
-//
-//   public createTransiction(transactionData: any) {
-//     return this.http.post(this.createTransectionUrl, transactionData, {withCredentials: true})
-//   }
-//
-//   public customerSellers() {
-//     return this.http.get(this.customerSellersUrl, {withCredentials: true})
-//   }
-//
-//   public getUser() {
-//     return this.http.get(this.userUrl, {withCredentials: true})
-//       .subscribe(user => {
-//         this.userSubject.next(user);
-//       }, () => {
-//         this.userSubject.next(null);
-//       });
-//   }
-//
-//   public getAllSellers() {
-//     return this.http.get(this.getAllSellersUrl, {withCredentials: true})
-//   }
-//
-//   public getSellerById(seller_id: number) {
-//     return this.http.get(this.getSellerByIdUrl + seller_id, {withCredentials: true})
-//   }
-//
-//   public login(userData: any) {
-//     return this.http.post(this.loginUrl, userData, {
-//       withCredentials: true
-//     })
-//   }
-//
-//
-// }
-// // ================================================================ new ===========
-//
-
-
 import {Injectable} from '@angular/core';
 import {loginData} from '../models/goldPrice.interface';
 import {registerData} from '../models/goldPrice.interface';
@@ -169,28 +16,6 @@ export class UserService {
               private router: Router) {
     console.log("base url: ", this.baseUrl)
   }
-
-  // private apiUrl = 'http://localhost:8000/api/update-price';  // آدرس API برای تغییر قیمت
-
-
-  // connectToSeller(sellerId: number) {
-  //   this.socket.ioSocket.io.opts.query = {sellerId};
-  //   this.socket.connect();
-  // }
-
-
-  // updatePrice(sellerId: number, price: number) {
-  //   return this.http.put(`${this.apiUrl}/${sellerId}/`, {price});
-  // }
-
-  // disconnect() {
-  //   this.socket.disconnect();
-  // }
-
-
-  // private priceSubject = new BehaviorSubject<number>(0);
-  // public price$ = this.priceSubject.asObservable();
-  // private socket!: WebSocket;
 
   public userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
@@ -226,34 +51,6 @@ export class UserService {
   }
 
 // --------------------------------------------------------------
-  //
-  // private _newPrice = new BehaviorSubject<number>(0);
-  // sellerPrice = this._newPrice.asObservable();
-  //
-  // setPrice(value: any) {
-  //   this._newPrice.next(value);
-  // }
-
-
-  // private baseUrl = "http://localhost:8000/api";
-
-  // private baseUrl = "http://192.168.1.11:8000/api";
-
-  // private registerUrl = "http://localhost:8000/api/register";
-
-  // private loginUrl = "http://localhost:8000/api/login";
-
-  // private userUrl = "http://localhost:8000/api/user";
-
-  // private createCustomerUrl = "http://localhost:8000/api/create-customer";
-
-  // private getAllSellersUrl = "http://localhost:8000/api/sellers";
-
-  // private getSellerByIdUrl = "http://localhost:8000/api/seller/";
-
-  // private customerSellersUrl = 'http://localhost:8000/api/customer-sellers';
-
-  // private createTransectionUrl = 'http://localhost:8000/api/create-transaction';
 
   API_KEY_GOLD = 'freej2vNlTDpSCNiIxUgNttprw9MAwgO'
   // GET_BASE_URL_GOLD = '/api/FreeTsetmcBourseApi/Api_Free_Gold_Currency.json'
@@ -279,9 +76,9 @@ export class UserService {
   //   return this.http.get(this.userUrl, {headers})
   // }
 
-  registerUser(userData: any) {
-    return this.http.post('http://localhost:8000/register/', userData);
-  }
+  // registerUser(userData: any) {
+  //   return this.http.post('http://localhost:8000/register/', userData);
+  // }
 
   // public login(userData: any) {
   //   return this.http.post(this.loginUrl, userData)
@@ -301,13 +98,6 @@ export class UserService {
 
   public getUser() {
     return this.http.get(`${this.baseUrl}/user`, {withCredentials: true})
-    // .subscribe((user: any) => {
-    //   console.log("user in getUser: true ", user);
-    //   this.userSubject.next(user);
-    // }, () => {
-    //   console.log("user in getUser: false ");
-    //   this.userSubject.next(null);
-    // });
   }
 
   public getAllSellers() {
@@ -334,7 +124,6 @@ export class UserService {
   //     });
   // }
 
-  // zarino.service.ts
 
   logout() {
     return this.http.post(`${this.baseUrl}/logout`, {}, {withCredentials: true})
