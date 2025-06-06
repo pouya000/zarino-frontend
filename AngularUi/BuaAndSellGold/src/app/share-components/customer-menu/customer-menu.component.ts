@@ -23,7 +23,7 @@ export class CustomerMenuComponent implements OnInit {
   constructor(private userservice: UserService,
               private router: Router,
               private menuCtrl: MenuController,) {
-    // this.checkLoginStatus();
+    this.checkUserStatus();
   }
 
 
@@ -35,23 +35,16 @@ export class CustomerMenuComponent implements OnInit {
 
   ngOnInit() {
 
+    this.checkUserStatus();
+
+  }
+
+  checkUserStatus() {
     this.userservice.user$.subscribe((returnStatusUser: any) => {
-      console.log("returnStatusUser: ", returnStatusUser);
+      console.log("return StatusUser in customer-menu: ", returnStatusUser);
       this.receive_user.firstName = returnStatusUser.first_name;
       this.receive_user.address = returnStatusUser.address;
     })
-
-    // this.userservice.checkAuthStatus().subscribe((user: any) => {
-    //   console.log("userrrrrrr2222: ", user);
-    //   this.receive_user.firstName = user.first_name;
-    //   this.receive_user.address = user.address;
-    // });
-
-    // this.userservice.checkAuthStatus().subscribe((user: any) => {
-    //   console.log("data in customer menu is: ", user);
-    //   this.receive_user.firstName = user.first_name;
-    //   this.receive_user.address = user.address;
-    // })
   }
 
   closeIonButton() {

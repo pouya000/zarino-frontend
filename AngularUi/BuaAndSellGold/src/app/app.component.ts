@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, signal} from '@angular/core';
 import {
   IonApp, IonRouterOutlet, IonIcon, IonMenu,
   IonContent, IonLabel, IonButton, IonList,
@@ -13,7 +13,7 @@ import {CommonModule} from "@angular/common";
 import {CustomerMenuComponent} from "./share-components/customer-menu/customer-menu.component";
 import {UserService} from "./sevices/user.service";
 import {LastRouteService} from "./sevices/last-route.service";
-import {NavController} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 
 register();
 
@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   http = inject(HttpClient);
 
   constructor(private userservice: UserService,
+              private platform: Platform,
               private navCtrl: NavController,
               private router: Router,
               private lastRouteService: LastRouteService) {
@@ -36,7 +37,7 @@ export class AppComponent implements OnInit {
 
   userType: string = '';
 
-  showMenu = true;
+  showMenu = signal(true);
 
   receive_user: any;
 
@@ -55,24 +56,27 @@ export class AppComponent implements OnInit {
 
 
     this.userservice.checkAuthStatus().subscribe((user: any) => {
-      console.log("data is: ", user);
+      console.log("checkAuthStatus in app.componenet is: ", user);
       if (user) {
+        this.showMenu.set(true);
         this.userType = user['user_type'];
+        const id_seller = localStorage.getItem('seller_id');
+        const id_customer = localStorage.getItem('customer_id');
 
+        console.log("id_seller ------> ", id_seller)
         const lastRoute = this.lastRouteService.getLastRoute();
         console.log("last route ------> ", lastRoute)
-        if (lastRoute && (lastRoute.includes('/seller/') || lastRoute.includes('/customer-tabs/'))) {
+        if (lastRoute && id_seller && (lastRoute.includes('/seller/') || lastRoute.includes('/customer-tabs/'))) {
           this.navCtrl.navigateRoot(lastRoute);
 
           // this.router.navigateByUrl(lastRoute);
         } else {
-          if (user.user_type == 'customer') {
+          if (user.user_type == 'customer' && id_seller && id_customer) {
             this.navCtrl.navigateRoot('/customer-tabs');
-          } else if (user.user_type == 'seller') {
+          } else if (user.user_type == 'seller' && id_seller) {
             this.navCtrl.navigateRoot('/seller');
           }
         }
-
 
         console.log('isLoggedInSubject is: ', this.userservice.isLoggedInSubject.getValue());
         this.receive_user = user.first_name;
@@ -96,6 +100,51 @@ export class AppComponent implements OnInit {
     }
   }
 
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.userservice.checkAuthStatus().subscribe((user: any) => {
+        console.log("checkAuthStatus in app.componenet is: ", user);
+        if (user) {
+          this.userType = user['user_type'];
+
+          const lastRoute = this.lastRouteService.getLastRoute();
+          console.log("last route ------> ", lastRoute)
+          if (lastRoute && (lastRoute.includes('/seller/') || lastRoute.includes('/customer-tabs/'))) {
+            this.navCtrl.navigateRoot(lastRoute);
+
+            // this.router.navigateByUrl(lastRoute);
+          } else {
+            if (user.user_type == 'customer') {
+              this.navCtrl.navigateRoot('/customer-tabs');
+            } else if (user.user_type == 'seller') {
+              this.navCtrl.navigateRoot('/seller');
+            }
+          }
+
+          console.log('isLoggedInSubject is: ', this.userservice.isLoggedInSubject.getValue());
+          this.receive_user = user.first_name;
+        }
+      });
+
+
+      const menu_items = document.querySelector('.menu-items')?.children;
+      console.log("menu-items: ", menu_items);
+      if (menu_items) {
+        for (let i = 0; i < menu_items.length; i++) {
+          menu_items[i].addEventListener('click', () => {
+            console.log("menu-items is clicked ");
+
+            for (let j = 0; j < menu_items.length; j++) {
+              menu_items[j].classList.remove('active')
+            }
+            menu_items[i].classList.add('active');
+          })
+        }
+      }
+    })
+  }
+
+
   logout() {
     this.userservice.logout()
       .subscribe((response: any) => {
@@ -103,6 +152,7 @@ export class AppComponent implements OnInit {
         localStorage.removeItem('customer_id');
         localStorage.removeItem('seller_id');
         localStorage.removeItem('jwt');
+        this.showMenu.set(false);
         this.router.navigate(['/login']);
       });
 

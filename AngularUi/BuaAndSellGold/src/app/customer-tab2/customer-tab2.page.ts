@@ -68,7 +68,7 @@ export class CustomerTab2Page implements OnInit {
     this.userservice.user$.subscribe(user => {
       if (user) {
         this.receive_user = user;
-        console.log("receive_user: ", this.receive_user);
+        console.log("receive_user in constructor in customer-tab2: ", this.receive_user);
 
       } else {
         console.log("کاربر احراز هویت نشده است.");
@@ -385,7 +385,6 @@ export class CustomerTab2Page implements OnInit {
   getGoldPrice() {
     this.http.get(this.BASE_URL,).subscribe((data: any) => {
       this.gold_price2 = data;
-      console.log("gold_price2 _______ ", this.gold_price2);
       if (this.gold_price2) {
         console.log("gold ------ ", this.gold_price2.gold[0], typeof (this.gold_price2.gold[0].price));
         this.date = this.gold_price2.gold[0];

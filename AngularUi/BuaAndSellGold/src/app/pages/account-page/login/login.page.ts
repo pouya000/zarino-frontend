@@ -94,7 +94,7 @@ export class LoginPage implements OnInit {
             if (result['user']['user_type'] == 'seller') {
               localStorage.setItem('seller_id', result.user.seller_id);
               this.userservice.checkAuthStatus().subscribe((user: any) => {
-                console.log("data is: ", user);
+                console.log("checkAuthStatus in login: ", user);
                 this.userservice.userSubject.next(user);
               })
               // this.navCtrl.navigateRoot('/seller/tabs');
@@ -104,7 +104,7 @@ export class LoginPage implements OnInit {
 
             } else if (result['user']['user_type'] == 'customer') {
               this.userservice.checkAuthStatus().subscribe((user: any) => {
-                console.log("data is: ", user);
+                console.log("checkAuthStatus in login: ", user);
                 this.userservice.userSubject.next(user);
               })
               localStorage.setItem('customer_id', result.user.customer_id);
@@ -123,91 +123,6 @@ export class LoginPage implements OnInit {
     }
 
   }
-
-
-  onLoginSubmit3() {
-    // this.goToApp();
-    if (this.loginForm.valid) {
-      this.userservice.login(this.loginForm.value)
-        .subscribe((result: any) => {
-          console.log('login ....', result['user']);
-
-          this.user_info.push(result.user);
-
-          if (result.jwt && result['user']['user_type'] == 'seller') {
-            localStorage.setItem('jwt', result.jwt);
-            localStorage.setItem('seller_id', result.user.seller_id);
-            this.router.navigate(['/seller/tabs/tab2']);
-          }
-
-          if (result.jwt && result['user']['user_type'] == 'customer') {
-            localStorage.setItem('jwt', result.jwt);
-            localStorage.setItem('customer_id', result.user.customer_id);
-            this.getAllSellers();
-
-            // this.customerSellers();
-            setTimeout(() => {
-              if (this.customerseller['sellers']?.length > 0) {
-                // this.changToSelectSellerNextTime();
-                this.goToChoiceSeller()
-              } else {
-                this.changToSellectSellerFirstForTime();
-              }
-            }, 1000)
-          }
-        })
-
-      // this.userservice.getUser();
-    }
-    //
-  }
-
-
-  onLoginSubmit2() {
-    // this.goToApp();
-    if (this.loginForm.valid) {
-      // const resultLogin = await this.userservice.login(this.loginForm.value)
-      this.http.post('http://192.168.1.11:8000/api/login', this.loginForm.value)
-        .subscribe({
-          next: (result: any) => {
-            this.user_info.push(result.user);
-
-            if (result.jwt && result['user']['user_type'] == 'seller') {
-              localStorage.setItem('jwt', result.jwt);
-              localStorage.setItem('seller_id', result.user.seller_id);
-              this.router.navigate(['/seller/tabs/tab2']);
-            }
-
-            if (result.jwt && result['user']['user_type'] == 'customer') {
-              localStorage.setItem('jwt', result.jwt);
-              localStorage.setItem('customer_id', result.user.customer_id);
-              this.getAllSellers();
-              this.customerSellers();
-              setTimeout(() => {
-                if (this.customerseller['sellers']?.length > 0) {
-                  this.changToSelectSellerNextTime()
-                } else {
-                  this.changToSellectSellerFirstForTime();
-                }
-              }, 1000)
-            }
-
-            console.log('Success', result);
-          },
-          error: (err) => {
-            console.log('Error1', err);
-            console.log('Error2', JSON.stringify(err));
-            console.log('Status:', err.status);
-            console.log('Message:', err.message);
-            console.log('Error Body:', err.error);
-            console.log('Full Error:', err);
-
-          }
-        })
-    }
-
-  }
-
 
   onSelectSellerFirstTimeSubmit() {
     // if (this.selectSellerForm.valid) {

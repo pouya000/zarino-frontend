@@ -72,20 +72,24 @@ export class WebSocketService {
     return this.http.get(`${this.baseUrl}/latest-price/${sellerId}/`);
   }
 
-  // گرفتن آخرین  -------------------------------
-  getLatestStoreStatus(sellerId: number) {
-    return this.http.get(`${this.baseUrl}/latest-status_store/${sellerId}/`);
-  }
-
-  // دریافت وضعیت مغازه
-  getStoreStatusUpdates(): Observable<'open' | 'close'> {
-    return this.storeStatusSubject.asObservable();
-  }
-
   // دریافت قیمت لحظه‌ای
   getPriceUpdates(): Observable<number> {
     return this.priceSubject.asObservable();
   }
+
+// ------------------------------
+
+  // گرفتن آخرین وضعیت مغازه از API--------
+  getLatestStoreStatus(sellerId: number) {
+    return this.http.get(`${this.baseUrl}/latest-status_store/${sellerId}/`);
+  }
+
+
+  // دریافت وضعیت لحظه ای مغازه
+  getStoreStatusUpdates(): Observable<'open' | 'close'> {
+    return this.storeStatusSubject.asObservable();
+  }
+
 
   // sendStatusOfStore(status: boolean) {
   //   this.socket$.send(JSON.stringify({

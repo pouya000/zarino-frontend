@@ -50,7 +50,7 @@ export class SellerMenuComponent implements OnInit, AfterViewInit {
 
 
     this.userservice.user$.subscribe((returnStatusUser: any) => {
-      console.log("returnStatusUser: ", returnStatusUser);
+      console.log("return StatusUser in seller-menu: ", returnStatusUser);
       this.receive_user.firstName = returnStatusUser.first_name;
       this.receive_user.address = returnStatusUser.address;
     })
@@ -113,7 +113,7 @@ export class SellerMenuComponent implements OnInit, AfterViewInit {
         console.log('res og logout: ', response);
         localStorage.removeItem('customer_id');
         localStorage.removeItem('seller_id');
-        this.menuCtrl.close('start')   // 'end' نام سمتی‌ست که در <ion-menu side="end"> دادید
+        this.menuCtrl.close('end')   // 'end' نام سمتی‌ست که در <ion-menu side="end"> دادید
           .then(() => {
             console.log('xxxxxxxxx: ');
 
