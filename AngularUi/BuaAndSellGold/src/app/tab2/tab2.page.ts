@@ -164,6 +164,8 @@ export class Tab2Page implements OnInit {
 
     this.getPrice();
 
+    this.getSellerById();
+
     // دریافت آخرین قیمت از API
     this.latestChangePrice();
 
@@ -240,9 +242,9 @@ export class Tab2Page implements OnInit {
     }
   }
 
-  getUser() {
-    this.userservice.getUser();
-  }
+  // getUser() {
+  //   this.userservice.getUser();
+  // }
 
   getSellerById() {
     this.userservice.getSellerById(this.sellerId)

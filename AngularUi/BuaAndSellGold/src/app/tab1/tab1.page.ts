@@ -52,7 +52,7 @@ export class Tab1Page implements OnInit {
   // }
 
   ngOnInit() {
-    this.userservice.getUser();
+    // this.userservice.getUser();
     // this.createtransiction();
   }
 
