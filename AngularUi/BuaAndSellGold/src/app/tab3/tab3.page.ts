@@ -18,7 +18,7 @@ import {
   IonGrid,
   IonRow,
   IonDatetimeButton,
-  IonSearchbar
+  IonSearchbar, IonCard
 } from '@ionic/angular/standalone';
 import {ExploreContainerComponent} from '../explore-container/explore-container.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -84,7 +84,8 @@ import {environment} from "../../environments/environment";
     IonItem,
     IonImg,
     IonLabel,
-    IonList
+    IonList,
+    IonCard
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 
