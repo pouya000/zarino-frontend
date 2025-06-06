@@ -8,7 +8,7 @@ import {
   IonModal,
   IonAvatar,
   IonButton,
-  IonButtons, IonItem, IonImg, IonLabel, IonList, IonDatetime, IonDatetimeButton,
+  IonButtons, IonItem, IonImg, IonLabel, IonList, IonDatetime, IonDatetimeButton,IonSearchbar
 } from '@ionic/angular/standalone';
 import {ExploreContainerComponent} from '../explore-container/explore-container.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -58,6 +58,7 @@ import {environment} from "../../environments/environment";
     FormsModule,
     CommonModule,
     IonDatetime,
+    IonSearchbar,
     IonAlert,
     IonDatetimeButton,
     IonModal,
