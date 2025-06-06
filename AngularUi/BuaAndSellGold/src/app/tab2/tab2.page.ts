@@ -66,7 +66,7 @@ export class Tab2Page implements OnInit {
     this.userservice.user$.subscribe(user => {
       if (user) {
         console.log("کاربر وارد شده در کانستراکتور تب2 :", user);
-        this.seller_name = user.last_name;
+        // this.seller_name = user.last_name;
         this.latestChangePrice();
         // this.getGoldPrice()
       } else {
@@ -248,7 +248,7 @@ export class Tab2Page implements OnInit {
     this.userservice.getSellerById(this.sellerId)
       .subscribe((res: any) => {
         console.log("seller is: ", res)
-        // this.seller_name = res.store_name;
+        this.seller_name = res.store_name;
       })
   }
 
