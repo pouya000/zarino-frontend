@@ -11,7 +11,11 @@ import {
   IonItem,
   IonImg,
   IonLabel,
-  IonList
+  IonCol,
+  IonGrid,
+  IonRow,
+  IonList,
+  IonCard
 } from '@ionic/angular/standalone';
 import {ExploreContainerComponent} from '../explore-container/explore-container.component';
 import {Router} from "@angular/router";
@@ -49,7 +53,11 @@ import {WebSocketService} from "../sevices/websocket.service";
     IonItem,
     IonImg,
     IonLabel,
-    IonList
+    IonList,
+    IonCol,
+    IonGrid,
+    IonRow,
+    IonCard
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DecimalPipe]

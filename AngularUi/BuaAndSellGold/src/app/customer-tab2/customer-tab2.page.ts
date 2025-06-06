@@ -12,16 +12,22 @@ import {FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule} fr
 import {catchError, of} from "rxjs";
 import {IonicModule} from '@ionic/angular';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
   IonModal,
   IonInput,
   IonAvatar,
   IonButton,
+  IonCol, IonGrid, IonRow,
   IonButtons,
   IonItem,
   IonImg,
-  IonLabel, AlertController,
-  IonList
+  IonLabel,
+  AlertController,
+  IonList,
+  IonCard
 } from '@ionic/angular/standalone';
 import {WebSocketService} from "../sevices/websocket.service";
 // import {AlertController} from "@ionic/angular";
@@ -38,7 +44,8 @@ interface TransactionForm {
   templateUrl: './customer-tab2.page.html',
   styleUrls: ['./customer-tab2.page.scss'],
   standalone: true,
-  imports: [IonAvatar,
+  imports: [
+    IonAvatar,
     IonModal,
     IonInput,
     IonButton,
@@ -47,8 +54,18 @@ interface TransactionForm {
     IonImg,
     IonLabel,
     IonList,
-    IonContent, IonHeader, IonTitle, IonToolbar,
-    ReactiveFormsModule, CommonModule, FormsModule],
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonCol,
+    IonGrid,
+    IonRow,
+    ReactiveFormsModule,
+    CommonModule,
+    FormsModule,
+    IonCard
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [DecimalPipe]
 })
@@ -335,9 +352,9 @@ export class CustomerTab2Page implements OnInit {
 
   }
 
-  getUser() {
-    this.userservice.getUser()
-  }
+  // getUser() {
+  //   this.userservice.getUser()
+  // }
 
   getSellerById() {
     this.sellerId = Number(localStorage.getItem('seller_id'));
