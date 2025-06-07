@@ -7,6 +7,7 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+
 .border-right {
   border-left: 1px solid rgb(201, 201, 201);
 }
@@ -31,6 +32,8 @@
   padding: 20px;
   text-align: center;
   background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid lightgray;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 }
 
