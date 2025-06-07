@@ -18,10 +18,10 @@
           <form id="form2" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
 
             <!-- Name -->
-            <div class="text-end position-relative">
+            <div class="ion-text-end position-relative">
               <label class="form-check-label mb-1 text-end pe-2" for="username">
-                <i class="bi bi-telephone-fill"></i>
                 <span class="text-gray"> نام کاربری</span>
+                <i class="bi bi-file-earmark-person-fill"></i>
               </label>
               <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
                      formControlName="username"
@@ -36,10 +36,10 @@
             </div>
 
             <!-- Mobile -->
-            <div class="text-end position-relative">
+            <div class="ion-text-end position-relative">
               <label class="form-check-label mb-1 text-end pe-2" for="email">
-                <i class="bi bi-telephone-fill"></i>
                 <span class="text-gray"> شماره موبایل</span>
+                <i class="bi bi-telephone-fill"></i>
               </label>
               <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
                      formControlName="email"
@@ -61,10 +61,10 @@
             </div>
 
             <!-- Address -->
-            <div class="text-end position-relative">
+            <div class="ion-text-end position-relative">
               <label class="form-check-label mb-1 text-end pe-2" for="address">
-                <i class="bi bi-telephone-fill"></i>
                 <span class="text-gray"> آدرس </span>
+                <i class="bi bi-shop-window"></i>
               </label>
               <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
                      formControlName="address"
@@ -80,10 +80,10 @@
             </div>
 
             <!-- Password -->
-            <div class="text-end">
+            <div class="ion-text-end">
               <label class="form-check-label mb-1 text-end pe-2 pr-3" for="password">
-                <i class="bi bi-key-fill"></i>
                 <span class="text-gray pe-2">رمز عبور</span>
+                <i class="bi bi-key-fill"></i>
               </label>
               <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5"
                      formControlName="password">
@@ -91,10 +91,10 @@
 
 
             <!-- User Type -->
-            <div class="text-end">
+            <div class="ion-text-end">
               <label class="form-check-label mb-1 text-end pe-2 pr-3" for="">
-                <i class="bi bi-key-fill"></i>
                 <span class="text-gray pe-2"> نوع کاربر </span>
+                <i class="bi bi-person-vcard-fill"></i>
               </label>
               <ion-radio-group>
                 <div class="radio-inline">
@@ -115,13 +115,13 @@
               <!--              </ion-select>-->
             </div>
 
-<!--            <div>-->
-<!--              <label for="optiona" class="me-4">مشتری</label>-->
-<!--              <input (click)="checkType('seller')" class="mx-3" type="radio" name="options1" id="optiona">-->
+            <!--            <div>-->
+            <!--              <label for="optiona" class="me-4">مشتری</label>-->
+            <!--              <input (click)="checkType('seller')" class="mx-3" type="radio" name="options1" id="optiona">-->
 
-<!--              <label for="optionb">فروشنده</label>-->
-<!--              <input (click)="checkType('customer')" class="mx-3" type="radio" name="options1" id="optionb">-->
-<!--            </div>-->
+            <!--              <label for="optionb">فروشنده</label>-->
+            <!--              <input (click)="checkType('customer')" class="mx-3" type="radio" name="options1" id="optionb">-->
+            <!--            </div>-->
 
 
             <!-- Submit Button -->

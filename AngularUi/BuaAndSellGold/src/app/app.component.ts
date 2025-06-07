@@ -37,28 +37,28 @@ export class AppComponent implements OnInit {
 
   userType: string = '';
 
-  showMenu = signal(true);
+  showMenu: boolean = true;
 
   receive_user: any;
 
 
   ngOnInit(): void {
 
-    // this.userservice.userSubject.subscribe((user) => {
-    //   if (user) {
-    //     this.userType = user['user_type'];
-    //     this.receive_user = user.first_name;
-    //   } else {
-    //     this.userType = '';
-    //     this.receive_user = '';
-    //   }
-    // });
+    this.userservice.userSubject.subscribe((user) => {
+      if (user) {
+        this.userType = user['user_type'];
+        // this.receive_user = user.first_name;
+      } else {
+        this.userType = '';
+        this.receive_user = '';
+      }
+    });
 
 
     this.userservice.checkAuthStatus().subscribe((user: any) => {
       console.log("checkAuthStatus in app.componenet is: ", user);
       if (user) {
-        this.showMenu.set(true);
+        this.showMenu = true;
         this.userType = user['user_type'];
         const id_seller = localStorage.getItem('seller_id');
         const id_customer = localStorage.getItem('customer_id');
@@ -152,7 +152,8 @@ export class AppComponent implements OnInit {
         localStorage.removeItem('customer_id');
         localStorage.removeItem('seller_id');
         localStorage.removeItem('jwt');
-        this.showMenu.set(false);
+        this.showMenu = false;
+        this.userType = '';
         this.router.navigate(['/login']);
       });
 
@@ -160,19 +161,19 @@ export class AppComponent implements OnInit {
   }
 
 
-  checkLogin() {
-    this.userservice.getUser().subscribe({
-      next: (user) => {
-        console.log('User is logged in:', user);
-        // اینجا می‌تونی اطلاعات کاربر رو در یک سرویسی ذخیره کنی
-      },
-      error: (err) => {
-        console.log('User is not authenticated');
-        this.router.navigate(['/login']);
-      }
-    });
-
-  }
+  // checkLogin() {
+  //   this.userservice.getUser().subscribe({
+  //     next: (user) => {
+  //       console.log('User is logged in:', user);
+  //       // اینجا می‌تونی اطلاعات کاربر رو در یک سرویسی ذخیره کنی
+  //     },
+  //     error: (err) => {
+  //       console.log('User is not authenticated');
+  //       this.router.navigate(['/login']);
+  //     }
+  //   });
+  //
+  // }
 
 
   checkLoginStatus() {
