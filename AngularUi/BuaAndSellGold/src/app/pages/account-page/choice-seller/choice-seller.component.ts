@@ -37,7 +37,10 @@ export class ChoiceSellerComponent implements OnInit {
 
   customerseller: any;
 
-  user_info: any[] = [];
+  user_info: any;
+
+  user_info2: any[] = [];
+
 
   SelectSellerFirstTimeView: boolean = false;
 
@@ -58,6 +61,12 @@ export class ChoiceSellerComponent implements OnInit {
 
       }
     });
+
+    this.userservice.user$.subscribe((data: any) => {
+      console.log("userservice.user$ in choice-seller: ", data);
+      this.user_info = data;
+      console.log("user_info2 in choice-seller: ", this.user_info);
+    })
 
     this.getAllSellers();
 
@@ -111,7 +120,9 @@ export class ChoiceSellerComponent implements OnInit {
   onSelectSellerFirstTimeSubmit() {
     // if (this.selectSellerForm.valid) {
     console.log("User Info in select seller:", this.user_info);
-    this.selectSellerForm.value['user_id'] = this.user_info[0]['id'];
+    console.log("selectSellerForm:", this.selectSellerForm.value);
+
+    this.selectSellerForm.value['user_id'] = this.user_info['id'];
 
     console.log("form is valid", this.selectSellerForm.value);
     this.userservice.createCustomer(this.selectSellerForm.value).subscribe(
