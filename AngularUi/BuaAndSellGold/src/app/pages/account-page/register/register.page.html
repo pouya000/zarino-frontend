@@ -123,7 +123,18 @@
 
 
             <!-- Submit Button -->
-            <button type="submit" class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نام</button>
+            <button type="submit"
+                    class="p-2 text-white rounded-3"
+                    [ngClass]="{
+                      'bg-green bg-opacity-75': !isLoading,
+                      'button-loading': isLoading
+                    }"
+                    [disabled]="isLoading">
+
+              <span *ngIf="!isLoading">ثبت نام</span>
+              <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+            </button>
+            <!--            <button type="submit" class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نام</button>-->
           </form>
         </div>
 

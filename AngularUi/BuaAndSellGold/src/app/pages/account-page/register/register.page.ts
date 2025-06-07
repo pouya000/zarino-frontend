@@ -5,6 +5,7 @@ import {
   IonContent,
   IonHeader,
   IonTitle,
+  IonSpinner,
   IonToolbar,
   IonSelectOption,
   IonRow,
@@ -14,13 +15,14 @@ import {
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {UserService} from "../../../sevices/user.service";
+import {finalize} from "rxjs/operators";
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonContent, IonItem, IonButton, IonInput, IonLabel, IonRadioGroup,IonRadio, IonSelectOption, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
+  imports: [IonContent, IonItem, IonSpinner, IonButton, IonInput, IonLabel, IonRadioGroup, IonRadio, IonSelectOption, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
 })
 
 export class RegisterPage implements OnInit {
@@ -58,6 +60,8 @@ export class RegisterPage implements OnInit {
 
   registerForm: FormGroup;
 
+  isLoading = false;
+
   resLogin: boolean = false;
 
   user_info: any[] = [];
@@ -72,14 +76,25 @@ export class RegisterPage implements OnInit {
 
   async onRegisterSubmit() {
     if (this.registerForm.valid) {
+
       console.log("form is valid", this.registerForm.value);
-      const resultRegister = await this.userservice.register(this.registerForm.value)
-        .subscribe((result: any) => {
-          console.log('registerr ....', result);
-          // if (result.message) {
-          //   this.router.navigate(['/login']);
-          // }
+
+      this.isLoading = true;
+
+      setTimeout(() => {
+        this.isLoading = false; // ۲. پس از دریافت پاسخ، وضعیت لودینگ را غیرفعال کنید
+      }, 2000);
+      const resultRegister = await this.userservice.register(this.registerForm.value).pipe(
+        finalize(() => {
+          // این بلاک همیشه اجرا می‌شود، چه موفقیت‌آمیز باشد چه با خطا
+          this.isLoading = false;
         })
+      ).subscribe((result: any) => {
+        console.log('registerr ....', result);
+        // if (result.message) {
+        //   this.router.navigate(['/login']);
+        // }
+      })
       this.router.navigate(['/login']);
       // this.changToLogin();
     }

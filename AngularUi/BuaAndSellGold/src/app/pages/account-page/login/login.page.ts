@@ -1,11 +1,21 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule} from '@angular/forms';
-import {IonContent, IonHeader, IonTitle, IonToolbar, IonRow, IonCol, IonGrid} from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonRow,
+  IonCol,
+  IonGrid,
+  IonSpinner
+} from '@ionic/angular/standalone';
 import {Router, RouterLink} from "@angular/router";
 import {UserService} from "../../../sevices/user.service";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
+import { finalize } from 'rxjs/operators';
 import {NavController} from "@ionic/angular";
 import {environment} from "../../../../environments/environment";
 
@@ -14,7 +24,7 @@ import {environment} from "../../../../environments/environment";
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar,RouterLink, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
+  imports: [IonContent, IonHeader,IonSpinner, IonTitle, IonToolbar, RouterLink, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
 })
 export class LoginPage implements OnInit {
 
@@ -40,6 +50,8 @@ export class LoginPage implements OnInit {
   baseUrl = environment.apiUrl
 
   loginForm: FormGroup;
+
+  isLoading = false;
 
   selectSellerForm: FormGroup;
 
@@ -87,7 +99,18 @@ export class LoginPage implements OnInit {
 
   onLoginSubmit() {
     if (this.loginForm.valid) {
-      this.userservice.login(this.loginForm.value)
+      this.isLoading = true;
+
+      setTimeout(() => {
+        this.isLoading = false; // ۲. پس از دریافت پاسخ، وضعیت لودینگ را غیرفعال کنید
+      }, 2000);
+
+      this.userservice.login(this.loginForm.value).pipe(
+        finalize(() => {
+          // این بلاک همیشه اجرا می‌شود، چه موفقیت‌آمیز باشد چه با خطا
+          this.isLoading = false;
+        })
+      )
         .subscribe((result: any) => {
             console.log('result[\'user\'] in login ....', result['user']);
             this.user_info.push(result.user);
@@ -170,7 +193,7 @@ export class LoginPage implements OnInit {
     this.onSelectSellerNextTimeView = true;
   }
 
-  changeToRegister(){
+  changeToRegister() {
 
 
   }

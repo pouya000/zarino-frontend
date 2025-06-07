@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
+  <ion-toolbar color="b" class="header-gold">
     <ion-title> ورود</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -8,7 +8,6 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="8">
-
         <div class="form" *ngIf="loginView">
           <div class="avatar">
             <img src="../../assets/images/istockphoto6.jpg" alt="Avatar">
@@ -34,70 +33,22 @@
             </div>
             <p [routerLink]="['/register']" class="text-success"><a> هنوز ثبت نام نکرده ام </a></p>
             <button type="submit"
-                    class="bg-green p-2 text-white bg-opacity-75 rounded-3">ورود
+                    class="p-2 text-white rounded-3"
+                    [ngClass]="{
+                      'bg-green bg-opacity-75': !isLoading,
+                      'button-loading': isLoading
+                    }"
+                    [disabled]="isLoading">
+
+              <span *ngIf="!isLoading">ورود</span>
+              <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+
             </button>
+            <!--            <button type="submit"-->
+            <!--                    class="bg-green p-2 text-white bg-opacity-75 rounded-3">ورود-->
+            <!--            </button>-->
           </form>
         </div>
-
-
-        <!--        <div class="form" *ngIf="SelectSellerFirstTimeView">-->
-        <!--          <h2> انتخاب بنکدار </h2>-->
-        <!--          <form id="form3" [formGroup]="selectSellerForm" (ngSubmit)="onSelectSellerFirstTimeSubmit()">-->
-
-        <!--            <div class="text-end">-->
-        <!--              <div>-->
-        <!--                <label class="form-check-label mb-1 text-end pe-2 pr-3" for="sellers">-->
-        <!--                  <i class="bi bi-key-fill"></i>-->
-        <!--                  <span class="text-gray pe-2"> انتخاب فروشنده </span>-->
-        <!--                </label>-->
-        <!--              </div>-->
-        <!--              <div class=" rounded-3 mb-5 p-2">-->
-        <!--                <select dir="rtl" class="form-select rounded-3 mb-5 p-2 "-->
-        <!--                        aria-label="Default select example"-->
-        <!--                        (change)="onSelectedSellersChange($event)"-->
-        <!--                        id="sellers">-->
-        <!--                  <option selected>لطفا یک فروشنده را انتخاب کنید</option>-->
-        <!--                  <option *ngFor="let seller of sellersList" value="{{seller.id}}"> {{seller.store_name}} </option>-->
-        <!--                </select>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--            <button type="submit"-->
-        <!--                    class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نهایی-->
-        <!--            </button>-->
-        <!--          </form>-->
-        <!--        </div>-->
-
-
-        <!--        <div class="form" *ngIf="onSelectSellerNextTimeView">-->
-        <!--          <h2> انتخاب بنکدار </h2>-->
-        <!--          <form id="form4">-->
-
-        <!--            <div class="text-end">-->
-        <!--              <div>-->
-        <!--                <label class="form-check-label mb-1 text-end pe-2 pr-3" for="customer-sellers">-->
-        <!--                  <i class="bi bi-key-fill"></i>-->
-        <!--                  <span class="text-gray pe-2"> انتخاب یکی از فروشنده ها  </span>-->
-        <!--                </label>-->
-        <!--              </div>-->
-        <!--              <div class=" rounded-3 mb-5 p-2">-->
-        <!--                <select dir="rtl" class="form-select rounded-3 mb-5 p-2 "-->
-        <!--                        aria-label="Default select example"-->
-        <!--                        (change)="onSelectedCustomerSellersChange($event)"-->
-        <!--                        id="customer-sellers">-->
-        <!--                  <option selected>لطفا یک فروشنده را انتخاب کنید</option>-->
-        <!--                  <option *ngFor="let seller of customerseller['sellers']"-->
-        <!--                          value="{{seller.id}}"> {{seller.store_name}} </option>-->
-        <!--                </select>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--            <button (click)="goToApp()"-->
-        <!--                    class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نهایی-->
-        <!--            </button>-->
-        <!--          </form>-->
-        <!--        </div>-->
-
-
-        <!--        <button (click)="addSellerToCustomerSubmit()"> افزودن فروشنده </button>-->
       </ion-col>
     </ion-row>
   </ion-grid>

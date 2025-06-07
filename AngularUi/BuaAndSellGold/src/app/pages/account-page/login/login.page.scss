@@ -7,6 +7,11 @@
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+.text-gold {
+  color: #724B18;
+  // color: #B98533;
+}
+
 .border-right {
   border-left: 1px solid rgb(201, 201, 201);
 }
@@ -143,4 +148,30 @@ a {
 
 .position-relative {
   position: relative;
+}
+
+// استایل اصلی دکمه را در اینجا قرار دهید
+button[type="submit"] {
+  min-width: 100px;
+  min-height: 54px;
+
+  // ۲. از فلکس‌باکس برای قرار دادن محتوا (متن یا اسپینر) دقیقا در مرکز استفاده کنید
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  // ۳. یک انیمیشن نرم برای تغییرات اندازه و رنگ ایجاد کنید
+  transition: all 0.4s ease-in-out;
+}
+
+
+.button-loading {
+  background-color: #578572 !important;
+  cursor: wait; // تغییر نشانگر موس به حالت انتظار
+  transform: scale(0.85);
+}
+
+// می‌توانید رنگ اسپینر را هم تغییر دهید تا در پس‌زمینه جدید بهتر دیده شود
+.button-loading ion-spinner {
+  color: #ffffff;
 }
