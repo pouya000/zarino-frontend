@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule} from '@angular/forms';
 import {IonContent, IonHeader, IonTitle, IonToolbar, IonRow, IonCol, IonGrid} from '@ionic/angular/standalone';
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {UserService} from "../../../sevices/user.service";
 import {HttpClient} from "@angular/common/http";
 import {catchError, Observable, of, tap} from "rxjs";
@@ -14,7 +14,7 @@ import {environment} from "../../../../environments/environment";
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar,RouterLink, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
 })
 export class LoginPage implements OnInit {
 
@@ -168,6 +168,11 @@ export class LoginPage implements OnInit {
     this.loginView = false;
     this.SelectSellerFirstTimeView = false;
     this.onSelectSellerNextTimeView = true;
+  }
+
+  changeToRegister(){
+
+
   }
 
   getAllSellers() {
