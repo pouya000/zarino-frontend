@@ -177,6 +177,7 @@ export class Tab2Page implements OnInit {
     // دریافت آخرین قیمت از API
     this.latestChangePrice();
 
+
     this.wsService.connect(this.sellerId).subscribe((data: any) => {
       console.log("return data is: ", data);
       if (data.status === true) {
