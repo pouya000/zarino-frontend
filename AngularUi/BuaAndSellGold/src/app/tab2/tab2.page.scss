@@ -1,8 +1,6 @@
 .text-gold {
   color: #724B18;
   // color: #B98533;
-
-
 }
 
 .header-gold {
@@ -166,6 +164,17 @@ ion-page {
   height: 100%;
 }
 
-//ion-content {
-//  flex: 1;
-//}
+.no-store {
+  text-align: center;
+  color: #b71c1c;
+  font-weight: bold;
+  padding: 20px;
+  font-size: 16px;
+}
+
+.btn-buy.disabled,
+.btn-sell.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+}
