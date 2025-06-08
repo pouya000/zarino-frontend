@@ -123,7 +123,7 @@ export class Tab2Page implements OnInit {
 
   newPrice: number | null = 2500;
 
-  // price: number = 0;
+  storeStatus: boolean = true;
 
   sellerId: number = Number(localStorage.getItem('seller_id'));
 
@@ -176,6 +176,26 @@ export class Tab2Page implements OnInit {
 
     // دریافت آخرین قیمت از API
     this.latestChangePrice();
+
+    this.wsService.connect(this.sellerId).subscribe((data: any) => {
+      console.log("return data is: ", data);
+      if (data.status === true) {
+        console.log('مغازه باز است');
+        this.storeStatus = true;
+
+      } else if (data.status === false) {
+        console.log('مغازه بسته است');
+        this.storeStatus = false;
+      }
+
+    });
+
+    this.wsService.getLatestStoreStatus(this.sellerId)
+      .subscribe((response: any) => {
+        console.log("status in customer tab2 is: ", response.is_open);
+        this.storeStatus = response.is_open;
+      });
+
 
     this.webSocket();
 
