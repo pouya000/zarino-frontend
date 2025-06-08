@@ -9,7 +9,7 @@ import {Router, RouterModule} from '@angular/router';
 import {HttpClient} from "@angular/common/http";
 import {register} from 'swiper/element/bundle';
 import {SellerMenuComponent} from "./share-components/seller-menu/seller-menu.component";
-import {CommonModule} from "@angular/common";
+
 import {CustomerMenuComponent} from "./share-components/customer-menu/customer-menu.component";
 import {UserService} from "./sevices/user.service";
 import {LastRouteService} from "./sevices/last-route.service";
@@ -21,8 +21,7 @@ register();
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
-  imports: [SellerMenuComponent, CustomerMenuComponent, CommonModule, IonApp, IonRouterOutlet, RouterModule, IonSplitPane, IonTitle, IonToolbar, IonHeader, IonIcon,
-    IonMenu, IonContent, IonLabel, IonIcon, IonButton, IonList, IonItem]
+  imports: [SellerMenuComponent, CustomerMenuComponent, IonApp, IonRouterOutlet, RouterModule, IonSplitPane, IonTitle, IonToolbar, IonHeader, IonIcon, IonMenu, IonContent, IonLabel, IonIcon, IonButton, IonList, IonItem]
 })
 export class AppComponent implements OnInit {
 

@@ -47,12 +47,14 @@
               </div>
               <div class=" rounded-3 mb-5 p-2">
                 <select dir="rtl" class="form-select rounded-3 mb-5 p-2 "
-                        aria-label="Default select example"
-                        id="customer-sellers"
-                        (change)="onSelectedSellersChange($event)">
+                  aria-label="Default select example"
+                  id="customer-sellers"
+                  (change)="onSelectedSellersChange($event)">
                   <option selected>لطفا یک فروشنده را انتخاب کنید</option>
-                  <option *ngFor="let seller of sellersList"
-                          value="{{seller.id}}"> {{seller.store_name}} </option>
+                  @for (seller of sellersList; track seller) {
+                    <option
+                    value="{{seller.id}}"> {{seller.store_name}} </option>
+                  }
                 </select>
               </div>
             </div>

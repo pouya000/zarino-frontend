@@ -8,49 +8,52 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-sm="8">
-        <div class="form" *ngIf="loginView">
-          <div class="avatar">
-            <img src="../../assets/images/istockphoto6.jpg" alt="Avatar">
-          </div>
-          <h2>فرم ورود</h2>
-          <form id="form1" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
-            <div class="ion-text-end">
-              <label class="form-check-label mb-1 text-end pe-2" for="email">
-                <span class="text-gray"> شماره موبایل</span>
-                <i class="bi bi-telephone-fill"></i>
-              </label>
-              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2" id="Username"
-                     formControlName="email">
+        @if (loginView) {
+          <div class="form">
+            <div class="avatar">
+              <img src="../../assets/images/istockphoto6.jpg" alt="Avatar">
             </div>
-
-            <div class="ion-text-end">
-              <label class="form-check-label mb-1 text-end pe-2 pr-3" for="password">
-                <span class="text-gray mx-5">رمز عبور</span>
-                <i class="bi bi-key-fill"></i>
-              </label>
-              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5" id="password"
-                     formControlName="password">
-            </div>
-            <p [routerLink]="['/register']" class="text-success"><a> هنوز ثبت نام نکرده ام </a></p>
-            <button type="submit"
+            <h2>فرم ورود</h2>
+            <form id="form1" [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+              <div class="ion-text-end">
+                <label class="form-check-label mb-1 text-end pe-2" for="email">
+                  <span class="text-gray"> شماره موبایل</span>
+                  <i class="bi bi-telephone-fill"></i>
+                </label>
+                <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2" id="Username"
+                  formControlName="email">
+                </div>
+                <div class="ion-text-end">
+                  <label class="form-check-label mb-1 text-end pe-2 pr-3" for="password">
+                    <span class="text-gray mx-5">رمز عبور</span>
+                    <i class="bi bi-key-fill"></i>
+                  </label>
+                  <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5" id="password"
+                    formControlName="password">
+                  </div>
+                  <p [routerLink]="['/register']" class="text-success"><a> هنوز ثبت نام نکرده ام </a></p>
+                  <button type="submit"
                     class="p-2 text-white rounded-3"
                     [ngClass]="{
                       'bg-green bg-opacity-75': !isLoading,
                       'button-loading': isLoading
                     }"
                     [disabled]="isLoading">
-
-              <span *ngIf="!isLoading">ورود</span>
-              <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-
-            </button>
-            <!--            <button type="submit"-->
-            <!--                    class="bg-green p-2 text-white bg-opacity-75 rounded-3">ورود-->
-            <!--            </button>-->
-          </form>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+                    @if (!isLoading) {
+                      <span>ورود</span>
+                    }
+                    @if (isLoading) {
+                      <ion-spinner name="crescent"></ion-spinner>
+                    }
+                  </button>
+                  <!--            <button type="submit"-->
+                  <!--                    class="bg-green p-2 text-white bg-opacity-75 rounded-3">ورود-->
+                <!--            </button>-->
+              </form>
+            </div>
+          }
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
 

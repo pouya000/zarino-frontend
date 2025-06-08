@@ -36,55 +36,55 @@
   </ion-grid>
 
   <!--  Search Transactions By Date-->
-  <ion-grid *ngIf="isSearchByDate">
-    <ion-row *ngIf="allTransactionsByDate.length > 0">
-      <ion-col size="12" sizeSm="6">
-        <ion-card dir="rtl" class="customer-info1">
-          <ion-card-header>
-            <div class="customer-info-title">
-              <div>
-                <ion-card-title>فاکتور</ion-card-title>
-              </div>
-              <div>
-                <ion-icon (click)="isSearchByDateToggle()" name="close-circle-outline"
-                          style="width: 20px; height: 20px; color: red;"></ion-icon>
-              </div>
-            </div>
-          </ion-card-header>
-
-          <ion-card-content>
-
-            <ion-grid>
-              <ion-row>
-                <ion-col>تاریخ</ion-col>
-                <ion-col>زمان</ion-col>
-                <ion-col>نام مشتری</ion-col>
-                <ion-col>نوع معامله</ion-col>
-                <ion-col>وزن <small>(گرم)</small></ion-col>
-                <ion-col>مبلغ <small>(تومان)</small></ion-col>
-              </ion-row>
-
-              <ion-row *ngFor="let trans of allTransactionsByDate">
-                <ion-icon name="checkmark-outline"></ion-icon>
-                <ion-col>{{trans.jalaliDate}}</ion-col>
-                <ion-col>{{trans.jalaliTime}}</ion-col>
-                <ion-col>{{trans.customer_name}}</ion-col>
-                <ion-col [ngClass]="trans.transaction_type === 'buy' ? 'green-text' : 'red-text'">
-                  {{ trans.transaction_type === 'buy' ? 'خرید' : 'فروش' }}
-                </ion-col>
-
-                <ion-col>{{trans.weight}} </ion-col>
-                <ion-col>{{trans.price | number:'1.0'}} </ion-col>
-              </ion-row>
-
-            </ion-grid>
-
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col size="12" sizeSm="6"></ion-col>
-    </ion-row>
-  </ion-grid>
+  @if (isSearchByDate) {
+    <ion-grid>
+      @if (allTransactionsByDate.length > 0) {
+        <ion-row>
+          <ion-col size="12" sizeSm="6">
+            <ion-card dir="rtl" class="customer-info1">
+              <ion-card-header>
+                <div class="customer-info-title">
+                  <div>
+                    <ion-card-title>فاکتور</ion-card-title>
+                  </div>
+                  <div>
+                    <ion-icon (click)="isSearchByDateToggle()" name="close-circle-outline"
+                    style="width: 20px; height: 20px; color: red;"></ion-icon>
+                  </div>
+                </div>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>تاریخ</ion-col>
+                    <ion-col>زمان</ion-col>
+                    <ion-col>نام مشتری</ion-col>
+                    <ion-col>نوع معامله</ion-col>
+                    <ion-col>وزن <small>(گرم)</small></ion-col>
+                    <ion-col>مبلغ <small>(تومان)</small></ion-col>
+                  </ion-row>
+                  @for (trans of allTransactionsByDate; track trans) {
+                    <ion-row>
+                      <ion-icon name="checkmark-outline"></ion-icon>
+                      <ion-col>{{trans.jalaliDate}}</ion-col>
+                      <ion-col>{{trans.jalaliTime}}</ion-col>
+                      <ion-col>{{trans.customer_name}}</ion-col>
+                      <ion-col [ngClass]="trans.transaction_type === 'buy' ? 'green-text' : 'red-text'">
+                        {{ trans.transaction_type === 'buy' ? 'خرید' : 'فروش' }}
+                      </ion-col>
+                      <ion-col>{{trans.weight}} </ion-col>
+                      <ion-col>{{trans.price | number:'1.0'}} </ion-col>
+                    </ion-row>
+                  }
+                </ion-grid>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col size="12" sizeSm="6"></ion-col>
+        </ion-row>
+      }
+    </ion-grid>
+  }
 
   <ion-card-content>
     <p class="allTransaction" (click)="allTransaction()"><i class="bi bi-receipt"></i> همه معاملات</p>
@@ -103,52 +103,53 @@
       </ion-header>
       <ion-content class="ion-padding">
         <!--  Search Total Transactions-->
-        <ion-grid *ngIf="isSearchTotal">
-          <ion-row>
-            <ion-col size="12" sizeSm="6">
-              <ion-card dir="rtl" class="customer-info1">
-                <ion-card-header>
-                  <div class="customer-info-title">
-                    <div>
-                      <ion-card-title>فاکتور</ion-card-title>
+        @if (isSearchTotal) {
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" sizeSm="6">
+                <ion-card dir="rtl" class="customer-info1">
+                  <ion-card-header>
+                    <div class="customer-info-title">
+                      <div>
+                        <ion-card-title>فاکتور</ion-card-title>
+                      </div>
+                      <div>
+                        <ion-icon (click)="isSearchByDateToggle()" name="close-circle-outline"
+                        style="width: 20px; height: 20px; color: red;"></ion-icon>
+                      </div>
                     </div>
-                    <div>
-                      <ion-icon (click)="isSearchByDateToggle()" name="close-circle-outline"
-                                style="width: 20px; height: 20px; color: red;"></ion-icon>
-                    </div>
-                  </div>
-                </ion-card-header>
-
-                <ion-card-content>
-                  <ion-grid>
-                    <ion-row>
-                      <ion-col>تاریخ</ion-col>
-                      <ion-col>زمان</ion-col>
-                      <ion-col>نام مشتری</ion-col>
-                      <ion-col>نوع معامله</ion-col>
-                      <ion-col>وزن <small>(گرم)</small></ion-col>
-                      <ion-col>مبلغ <small>(تومان)</small></ion-col>
-                    </ion-row>
-
-                    <ion-row *ngFor="let trans of allTransactions">
-                      <ion-icon name="checkmark-outline"></ion-icon>
-                      <ion-col>{{trans.jalaliDate}}</ion-col>
-                      <ion-col>{{trans.jalaliTime}}</ion-col>
-                      <ion-col>{{trans.customer_name}}</ion-col>
-                      <ion-col [ngClass]="trans.transaction_type === 'buy' ? 'green-text' : 'red-text'">
-                        {{ trans.transaction_type === 'buy' ? 'خرید' : 'فروش' }}
-                      </ion-col>
-
-                      <ion-col>{{trans.weight}} </ion-col>
-                      <ion-col>{{trans.price | number:'1.0'}} </ion-col>
-                    </ion-row>
-                  </ion-grid>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-            <ion-col size="12" sizeSm="6"></ion-col>
-          </ion-row>
-        </ion-grid>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col>تاریخ</ion-col>
+                        <ion-col>زمان</ion-col>
+                        <ion-col>نام مشتری</ion-col>
+                        <ion-col>نوع معامله</ion-col>
+                        <ion-col>وزن <small>(گرم)</small></ion-col>
+                        <ion-col>مبلغ <small>(تومان)</small></ion-col>
+                      </ion-row>
+                      @for (trans of allTransactions; track trans) {
+                        <ion-row>
+                          <ion-icon name="checkmark-outline"></ion-icon>
+                          <ion-col>{{trans.jalaliDate}}</ion-col>
+                          <ion-col>{{trans.jalaliTime}}</ion-col>
+                          <ion-col>{{trans.customer_name}}</ion-col>
+                          <ion-col [ngClass]="trans.transaction_type === 'buy' ? 'green-text' : 'red-text'">
+                            {{ trans.transaction_type === 'buy' ? 'خرید' : 'فروش' }}
+                          </ion-col>
+                          <ion-col>{{trans.weight}} </ion-col>
+                          <ion-col>{{trans.price | number:'1.0'}} </ion-col>
+                        </ion-row>
+                      }
+                    </ion-grid>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" sizeSm="6"></ion-col>
+            </ion-row>
+          </ion-grid>
+        }
       </ion-content>
     </ng-template>
   </ion-modal>

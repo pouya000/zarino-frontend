@@ -23,124 +23,139 @@
       </div>
 
       <hr>
-      <div class="line2"></div>
+        <div class="line2"></div>
 
-      <ion-grid>
-        <ion-row>
-          <ion-col size="12" sizeMd="4">
-            <ion-card class="gold-date">
-              <ion-card-header *ngIf="storeStatus ; else noStore">
-                <div>
-                  <p> هر گرم طلای 18 عیار <small>( تومان ):</small></p>
-                </div>
-                <div>
-                  <p *ngIf="gold_price2">
-                    {{ buyPrice | number:'1.0' }}
-                  </p>
-                </div>
-              </ion-card-header>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="12" sizeMd="4">
+              <ion-card class="gold-date">
+                @if (storeStatus ) {
+                  <ion-card-header>
+                    <div>
+                      <p> هر گرم طلای 18 عیار <small>( تومان ):</small></p>
+                    </div>
+                    <div>
+                      @if (gold_price2) {
+                        <p>
+                          {{ buyPrice | number:'1.0' }}
+                        </p>
+                      }
+                    </div>
+                  </ion-card-header>
+                } @else {
+                  <div class="no-store">
+                    فروشگاه بسته است.
+                  </div>
+                }
 
-              <ion-card-header class="date-time">
-                <div>
-                  <p *ngIf="gold_price2">{{time.time}}</p>
-                </div>
+                <ion-card-header class="date-time">
+                  <div>
+                    @if (gold_price2) {
+                      <p>{{time.time}}</p>
+                    }
+                  </div>
 
-                <div>
-                  <p *ngIf="gold_price2">{{date.date}}</p>
-                </div>
-              </ion-card-header>
-            </ion-card>
-
-
-            <ng-template #noStore>
-              <div class="no-store">
-                فروشگاه بسته است.
-              </div>
-            </ng-template>
-
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+                  <div>
+                    @if (gold_price2) {
+                      <p>{{date.date}}</p>
+                    }
+                  </div>
+                </ion-card-header>
+              </ion-card>
 
 
-      <!--      <ion-grid>-->
-      <!--        <ion-row>-->
-      <!--          <ion-col size="12" sizeMd="4">-->
-      <!--            <ion-card class="gold-date">-->
-      <!--              <ion-card-header>-->
-      <!--                <div>-->
-      <!--                  <p> هر گرم طلای 18 عیار <small>( تومان ):</small></p>-->
+
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <!--      <ion-grid>-->
+        <!--        <ion-row>-->
+        <!--          <ion-col size="12" sizeMd="4">-->
+        <!--            <ion-card class="gold-date">-->
+        <!--              <ion-card-header>-->
+        <!--                <div>-->
+        <!--                  <p> هر گرم طلای 18 عیار <small>( تومان ):</small></p>-->
       <!--                </div>-->
       <!--                <div>-->
       <!--                  <p *ngIf="gold_price2">-->
       <!--                    {{ buyPrice | number:'1.0' }}-->
-      <!--                  </p>-->
-      <!--                </div>-->
-      <!--              </ion-card-header>-->
+    <!--                  </p>-->
+  <!--                </div>-->
+<!--              </ion-card-header>-->
 
-      <!--              <ion-card-header class="date-time">-->
-      <!--                <div>-->
-      <!--                  <p *ngIf="gold_price2">{{time.time}}</p>-->
-      <!--                </div>-->
+<!--              <ion-card-header class="date-time">-->
+<!--                <div>-->
+<!--                  <p *ngIf="gold_price2">{{time.time}}</p>-->
+<!--                </div>-->
 
-      <!--                <div>-->
-      <!--                  <p *ngIf="gold_price2">{{date.date}}</p>-->
-      <!--                </div>-->
-      <!--              </ion-card-header>-->
-      <!--            </ion-card>-->
-      <!--          </ion-col>-->
-      <!--        </ion-row>-->
-      <!--      </ion-grid>-->
+<!--                <div>-->
+<!--                  <p *ngIf="gold_price2">{{date.date}}</p>-->
+<!--                </div>-->
+<!--              </ion-card-header>-->
+<!--            </ion-card>-->
+<!--          </ion-col>-->
+<!--        </ion-row>-->
+<!--      </ion-grid>-->
 
-      <div class="price-content-button">
+<div class="price-content-button">
 
-        <div class="buyandsell">
-          <h5 *ngIf="gold_price2">
-            {{ buyPrice + latestChangeBuyPrice | number:'1.0' }}
-          </h5>
-          <div class="btn-buy" [class.disabled]="!storeStatus" (click)="updatePrice('buy')"> قیمت خرید</div>
-          <div>
-            <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="addToPrice('buy')">
-              <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-            </ion-button>
-          </div>
-          <div>
-            <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="minusToPrice('buy')">
-              <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
-            </ion-button>
-          </div>
-          <h5 *ngIf="gold_price2">
-            {{ updateBuyPrice| number:'1.0' }}
-          </h5>
-        </div>
-
-        <div class="buyandsell">
-          <h5 *ngIf="gold_price2">
-            {{ sellPrice + latestChangeSellPrice| number:'1.0'}}
-          </h5>
-          <div color="kk" class="btn-sell" [class.disabled]="!storeStatus" (click)="updatePrice('sell')">قیمت فروش</div>
-          <div>
-            <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="addToPrice('sell')">
-              <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-            </ion-button>
-          </div>
-          <div>
-            <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="minusToPrice('sell')">
-              <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
-            </ion-button>
-          </div>
-          <h5 *ngIf="gold_price2">
-            {{ updateSellPrice| number:'1.0' }}
-          </h5>
-        </div>
-        <!-- <img src="../assets/images/Golg3.jpg" style="width: 100px; height: 70px;" alt=""> -->
-        <!-- <img src="../assets/images/gold-background.jpg" style="width: 100px; height: 70px;" alt=""> -->
-      </div>
-
-
+  <div class="buyandsell">
+    @if (gold_price2) {
+      <h5>
+        {{ buyPrice + latestChangeBuyPrice | number:'1.0' }}
+      </h5>
+    }
+    <div class="btn-buy" [class.disabled]="!storeStatus" (click)="updatePrice('buy')"> قیمت خرید</div>
+    <div>
+      <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="addToPrice('buy')">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
     </div>
+    <div>
+      <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="minusToPrice('buy')">
+        <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
+      </ion-button>
+    </div>
+    @if (gold_price2) {
+      <h5>
+        {{ updateBuyPrice| number:'1.0' }}
+      </h5>
+    }
+  </div>
+
+  <div class="buyandsell">
+    @if (gold_price2) {
+      <h5>
+        {{ sellPrice + latestChangeSellPrice| number:'1.0'}}
+      </h5>
+    }
+    <div color="kk" class="btn-sell" [class.disabled]="!storeStatus" (click)="updatePrice('sell')">قیمت فروش</div>
+    <div>
+      <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="addToPrice('sell')">
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </div>
+    <div>
+      <ion-button class="small-button" [disabled]="!storeStatus" shape="round" fill="outline" (click)="minusToPrice('sell')">
+        <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
+      </ion-button>
+    </div>
+    @if (gold_price2) {
+      <h5>
+        {{ updateSellPrice| number:'1.0' }}
+      </h5>
+    }
+  </div>
+  <!-- <img src="../assets/images/Golg3.jpg" style="width: 100px; height: 70px;" alt=""> -->
+  <!-- <img src="../assets/images/gold-background.jpg" style="width: 100px; height: 70px;" alt=""> -->
+</div>
 
 
-  </ion-content>
+</div>
+
+
+</ion-content>
 
 </ion-page>

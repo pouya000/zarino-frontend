@@ -50,8 +50,12 @@
 
 
 <ion-app >
-  <app-seller-menu *ngIf="showMenu && userType === 'seller'"></app-seller-menu>
-  <app-customer-menu *ngIf="showMenu && userType === 'customer'"></app-customer-menu>
+  @if (showMenu && userType === 'seller') {
+    <app-seller-menu></app-seller-menu>
+  }
+  @if (showMenu && userType === 'customer') {
+    <app-customer-menu></app-customer-menu>
+  }
   <ion-router-outlet id="main-content"></ion-router-outlet>
 </ion-app>
 

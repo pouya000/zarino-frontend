@@ -3,14 +3,14 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../../sevices/user.service";
 import {IonCol, IonContent, IonGrid, IonHeader, IonRow, IonTitle, IonToolbar} from "@ionic/angular/standalone";
-import {CommonModule} from "@angular/common";
+
 import {catchError, of} from "rxjs";
 
 @Component({
   selector: 'app-choice-seller',
   templateUrl: './choice-seller.component.html',
   styleUrls: ['./choice-seller.component.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, FormsModule, IonRow, IonCol, IonGrid, ReactiveFormsModule]
 
 })
 export class ChoiceSellerComponent implements OnInit {

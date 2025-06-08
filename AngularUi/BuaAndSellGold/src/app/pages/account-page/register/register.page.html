@@ -22,133 +22,150 @@
                 <i class="bi bi-file-earmark-person-fill"></i>
               </label>
               <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
-                     formControlName="username"
-                     id="username">
-              <div
-                *ngIf="registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)"
-                class="alert">
-                <div class="text-center" *ngIf="registerForm.get('username')?.hasError('required')">
-                  <small>وارد کردن نام کاربری الزامی است </small>
-                </div>
-              </div>
-            </div>
-
-            <!-- Mobile -->
-            <div class="ion-text-end position-relative">
-              <label class="form-check-label mb-1 text-end pe-2" for="email">
-                <span class="text-gray"> شماره موبایل</span>
-                <i class="bi bi-telephone-fill"></i>
-              </label>
-              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
-                     formControlName="email"
-                     id="email">
-              <div
-                *ngIf="registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)"
-                class="alert">
-                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('required')">
-                  <small>وارد کردن موبایل الزامی است </small>
-                </div>
-                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('minLength')">
-                  <small>شماره موبایل باید حداقل 11 رقم باشد.</small>
-                </div>
-                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('maxLength')">
-                  <small>شماره موبایل باید حداکثر 11 رقم باشد.</small>
-                </div>
+                formControlName="username"
+                id="username">
+                @if (registerForm.get('username')?.invalid && (registerForm.get('username')?.dirty || registerForm.get('username')?.touched)) {
+                  <div
+                    class="alert">
+                    @if (registerForm.get('username')?.hasError('required')) {
+                      <div class="text-center">
+                        <small>وارد کردن نام کاربری الزامی است </small>
+                      </div>
+                    }
+                  </div>
+                }
               </div>
 
-            </div>
+              <!-- Mobile -->
+              <div class="ion-text-end position-relative">
+                <label class="form-check-label mb-1 text-end pe-2" for="email">
+                  <span class="text-gray"> شماره موبایل</span>
+                  <i class="bi bi-telephone-fill"></i>
+                </label>
+                <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
+                  formControlName="email"
+                  id="email">
+                  @if (registerForm.get('email')?.invalid && (registerForm.get('email')?.dirty || registerForm.get('email')?.touched)) {
+                    <div
+                      class="alert">
+                      @if (registerForm.get('email')?.hasError('required')) {
+                        <div class="text-center">
+                          <small>وارد کردن موبایل الزامی است </small>
+                        </div>
+                      }
+                      @if (registerForm.get('email')?.hasError('minLength')) {
+                        <div class="text-center">
+                          <small>شماره موبایل باید حداقل 11 رقم باشد.</small>
+                        </div>
+                      }
+                      @if (registerForm.get('email')?.hasError('maxLength')) {
+                        <div class="text-center">
+                          <small>شماره موبایل باید حداکثر 11 رقم باشد.</small>
+                        </div>
+                      }
+                    </div>
+                  }
 
-            <!-- Address -->
-            <div class="ion-text-end position-relative">
-              <label class="form-check-label mb-1 text-end pe-2" for="address">
-                <span class="text-gray"> آدرس </span>
-                <i class="bi bi-shop-window"></i>
-              </label>
-              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
-                     formControlName="address"
-                     id="address">
-              <div
-                *ngIf="registerForm.get('address')?.invalid && (registerForm.get('address')?.dirty || registerForm.get('address')?.touched)"
-                class="alert">
-                <div class="text-center" *ngIf="registerForm.get('email')?.hasError('required')">
-                  <small>وارد کردن آدرس الزامی است </small>
                 </div>
-              </div>
 
-            </div>
+                <!-- Address -->
+                <div class="ion-text-end position-relative">
+                  <label class="form-check-label mb-1 text-end pe-2" for="address">
+                    <span class="text-gray"> آدرس </span>
+                    <i class="bi bi-shop-window"></i>
+                  </label>
+                  <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-2"
+                    formControlName="address"
+                    id="address">
+                    @if (registerForm.get('address')?.invalid && (registerForm.get('address')?.dirty || registerForm.get('address')?.touched)) {
+                      <div
+                        class="alert">
+                        @if (registerForm.get('email')?.hasError('required')) {
+                          <div class="text-center">
+                            <small>وارد کردن آدرس الزامی است </small>
+                          </div>
+                        }
+                      </div>
+                    }
 
-            <!-- Password -->
-            <div class="ion-text-end">
-              <label class="form-check-label mb-1 text-end pe-2 pr-3" for="password">
-                <span class="text-gray pe-2">رمز عبور</span>
-                <i class="bi bi-key-fill"></i>
-              </label>
-              <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5"
-                     formControlName="password">
-            </div>
+                  </div>
+
+                  <!-- Password -->
+                  <div class="ion-text-end">
+                    <label class="form-check-label mb-1 text-end pe-2 pr-3" for="password">
+                      <span class="text-gray pe-2">رمز عبور</span>
+                      <i class="bi bi-key-fill"></i>
+                    </label>
+                    <input dir="rtl" type="text" class="form-control p-2 rounded-3 mb-5"
+                      formControlName="password">
+                    </div>
 
 
-            <!-- User Type -->
-            <div class="ion-text-end">
-              <label class="form-check-label mb-1 text-end pe-2 pr-3" for="">
-                <span class="text-gray pe-2"> نوع کاربر </span>
-                <i class="bi bi-person-vcard-fill"></i>
-              </label>
-              <ion-radio-group>
-                <div class="radio-inline">
-                  <ion-item dir="rtl">
-                    <ion-label>مشتری</ion-label>
-                    <ion-radio (click)="checkType('customer')" value="customer" slot="start"></ion-radio>
-                  </ion-item>
-                  <ion-item dir="rtl">
-                    <ion-label>فروشنده</ion-label>
-                    <ion-radio (click)="checkType('seller')" value="seller" slot="start"></ion-radio>
-                  </ion-item>
+                    <!-- User Type -->
+                    <div class="ion-text-end">
+                      <label class="form-check-label mb-1 text-end pe-2 pr-3" for="">
+                        <span class="text-gray pe-2"> نوع کاربر </span>
+                        <i class="bi bi-person-vcard-fill"></i>
+                      </label>
+                      <ion-radio-group>
+                        <div class="radio-inline">
+                          <ion-item dir="rtl">
+                            <ion-label>مشتری</ion-label>
+                            <ion-radio (click)="checkType('customer')" value="customer" slot="start"></ion-radio>
+                          </ion-item>
+                          <ion-item dir="rtl">
+                            <ion-label>فروشنده</ion-label>
+                            <ion-radio (click)="checkType('seller')" value="seller" slot="start"></ion-radio>
+                          </ion-item>
+                        </div>
+                      </ion-radio-group>
+                      <!--              <ion-select class="rtl-select" aria-label="Favorite Fruit" value="" formControlName="user_type">-->
+                      <!--                <ion-select-option *ngFor="let user of user_type" [value]="user.user_type">-->
+                      <!--                  {{ user.name }}-->
+                    <!--                </ion-select-option>-->
+                  <!--              </ion-select>-->
                 </div>
-              </ion-radio-group>
-              <!--              <ion-select class="rtl-select" aria-label="Favorite Fruit" value="" formControlName="user_type">-->
-              <!--                <ion-select-option *ngFor="let user of user_type" [value]="user.user_type">-->
-              <!--                  {{ user.name }}-->
-              <!--                </ion-select-option>-->
-              <!--              </ion-select>-->
-            </div>
 
-            <!--            <div>-->
-            <!--              <label for="optiona" class="me-4">مشتری</label>-->
-            <!--              <input (click)="checkType('seller')" class="mx-3" type="radio" name="options1" id="optiona">-->
+                <!--            <div>-->
+                <!--              <label for="optiona" class="me-4">مشتری</label>-->
+                <!--              <input (click)="checkType('seller')" class="mx-3" type="radio" name="options1" id="optiona">-->
 
-            <!--              <label for="optionb">فروشنده</label>-->
-            <!--              <input (click)="checkType('customer')" class="mx-3" type="radio" name="options1" id="optionb">-->
-            <!--            </div>-->
+                <!--              <label for="optionb">فروشنده</label>-->
+                <!--              <input (click)="checkType('customer')" class="mx-3" type="radio" name="options1" id="optionb">-->
+              <!--            </div>-->
 
 
-            <!-- Submit Button -->
-            <button type="submit"
-                    class="p-2 text-white rounded-3"
+              <!-- Submit Button -->
+              <button type="submit"
+                class="p-2 text-white rounded-3"
                     [ngClass]="{
                       'bg-green bg-opacity-75': !isLoading,
                       'button-loading': isLoading
                     }"
-                    [disabled]="isLoading">
+                [disabled]="isLoading">
 
-              <span *ngIf="!isLoading">ثبت نام</span>
-              <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
-            </button>
-            <!--            <button type="submit" class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نام</button>-->
-          </form>
-        </div>
+                @if (!isLoading) {
+                  <span>ثبت نام</span>
+                }
+                @if (isLoading) {
+                  <ion-spinner name="crescent"></ion-spinner>
+                }
+              </button>
+              <!--            <button type="submit" class="bg-green p-2 text-white bg-opacity-75 rounded-3">ثبت نام</button>-->
+            </form>
+          </div>
 
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
 
 
-<!--========== form nomber 2 ===============-->
+  <!--========== form nomber 2 ===============-->
 
-<!--<ion-header>-->
-<!--  <ion-toolbar>-->
-<!--    <ion-title>ثبت نام</ion-title>-->
+  <!--<ion-header>-->
+  <!--  <ion-toolbar>-->
+  <!--    <ion-title>ثبت نام</ion-title>-->
 <!--  </ion-toolbar>-->
 <!--</ion-header>-->
 

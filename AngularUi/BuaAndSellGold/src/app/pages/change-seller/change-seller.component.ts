@@ -30,7 +30,7 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
-import {CommonModule} from "@angular/common";
+
 import {catchError, of} from "rxjs";
 
 @Component({
@@ -38,9 +38,17 @@ import {catchError, of} from "rxjs";
   templateUrl: './change-seller.component.html',
   styleUrls: ['./change-seller.component.scss'],
   imports: [
-    IonGrid, IonCol, IonRow, ReactiveFormsModule,
-    IonAvatar, IonCardContent, IonCardSubtitle, CommonModule,
-    IonCardTitle, IonCardHeader, IonCard, IonListHeader,
+    IonGrid,
+    IonCol,
+    IonRow,
+    ReactiveFormsModule,
+    IonAvatar,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
+    IonListHeader,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -57,7 +65,7 @@ import {catchError, of} from "rxjs";
     IonBackButton,
     IonModal,
     IonRouterOutlet
-  ],
+],
   standalone: true,
 
 })

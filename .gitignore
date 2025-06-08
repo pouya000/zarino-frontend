@@ -1,0 +1,81 @@
+# Angular build outputs
+/dist
+/out-tsc
+
+# Compiled output
+/**/*.js
+/**/*.js.map
+
+# Node modules
+node_modules/
+
+# Build artifacts
+/tmp
+/.angular
+/.angular/cache
+/.angular/cache/**
+/.angular/compiler-cli
+
+# Ionic specific
+/android
+/ios
+/electron
+/www
+
+# Capacitor specific
+/capacitor.config.ts
+/capacitor.config.json
+/android/app/build
+/ios/App/build
+
+# Environment files
+/src/environments/environment*.ts
+
+# IDEs and editors
+.idea
+.project
+.settings
+.vscode
+*.sublime-workspace
+*.sublime-project
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Package managers
+#package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Other cache
+/.npm
+/.yarn
+/.pnpm-store
+/.cache
+
+# Ignore sqlite DB
+db.sqlite3
+
+# Ignore Angular frontend
+#AngularUi/
+
+# Ignore pycache
+__pycache__/
+**/__pycache__/
+
+
+/users
+/sellers
+/todo
+/requirements.txt
+/utils
+/zarino
+/Procfile
+/manage.py

@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule} from '@angular/forms';
-import {CommonModule} from '@angular/common';
+
 
 import {
   IonHeader,
@@ -39,9 +39,17 @@ import {UserService} from "../../sevices/user.service";
   templateUrl: './add-seller.component.html',
   styleUrls: ['./add-seller.component.scss'],
   imports: [
-    IonGrid, IonCol, IonRow, ReactiveFormsModule,
-    IonAvatar, IonCardContent, IonCardSubtitle, CommonModule,
-    IonCardTitle, IonCardHeader, IonCard, IonListHeader,
+    IonGrid,
+    IonCol,
+    IonRow,
+    ReactiveFormsModule,
+    IonAvatar,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
+    IonListHeader,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -58,7 +66,7 @@ import {UserService} from "../../sevices/user.service";
     IonBackButton,
     IonModal,
     IonRouterOutlet
-  ],
+],
   standalone: true,
 })
 export class AddSellerComponent implements OnInit {

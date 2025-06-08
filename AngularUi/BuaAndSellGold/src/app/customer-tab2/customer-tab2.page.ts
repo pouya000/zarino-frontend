@@ -2,7 +2,7 @@ import {Component, CUSTOM_ELEMENTS_SCHEMA, inject, OnInit, signal, ViewChild} fr
 import {ExploreContainerComponent} from '../explore-container/explore-container.component';
 import {Router} from "@angular/router";
 import {UserService} from "../sevices/user.service";
-import {CommonModule, DecimalPipe} from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 // import {environment} from "../../environments/environment";
 import {environment} from 'src/environments/environment';
 import {OverlayEventDetail} from '@ionic/core/components';

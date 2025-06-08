@@ -6,7 +6,8 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-import { importProvidersFrom } from '@angular/core';
+import { importProvidersFrom, isDevMode } from '@angular/core';
+import { provideServiceWorker } from '@angular/service-worker';
 
 
 const socketConfig: SocketIoConfig = { url: 'ws://localhost:8000', options: {} };
@@ -17,7 +18,10 @@ bootstrapApplication(AppComponent, {
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules),withComponentInputBinding()),
     provideHttpClient(),
-    importProvidersFrom(SocketIoModule.forRoot(socketConfig)) // مقداردهی WebSocket
+    importProvidersFrom(SocketIoModule.forRoot(socketConfig)), provideServiceWorker('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            registrationStrategy: 'registerWhenStable:30000'
+          }) // مقداردهی WebSocket
 
   ],
 });
