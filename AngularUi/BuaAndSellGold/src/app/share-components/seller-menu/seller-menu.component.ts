@@ -36,6 +36,7 @@ export class SellerMenuComponent implements OnInit, AfterViewInit {
 
   sellerId = Number(localStorage.getItem('seller_id'));
 
+  seller_name: string = '';
 
   storeStatus: boolean = true;
 
@@ -59,9 +60,19 @@ export class SellerMenuComponent implements OnInit, AfterViewInit {
       .subscribe((response: any) => {
         console.log("status in customer tab2 is: ", response.is_open);
         this.storeStatus = response.is_open;
+        this.storeToggle.checked = this.storeStatus;
       });
 
 
+  }
+
+  getSellerById() {
+    // this.sellerId = Number(localStorage.getItem('seller_id'));
+    this.userservice.getSellerById(this.sellerId)
+      .subscribe((res: any) => {
+        console.log("seller is: ", res)
+        this.seller_name = res.store_name;
+      })
   }
 
   conectWs() {
