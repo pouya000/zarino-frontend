@@ -178,3 +178,14 @@ ion-page {
   pointer-events: none;
   cursor: not-allowed;
 }
+
+.install-button {
+  background-color: #5a67d8;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  margin: 10px;
+}

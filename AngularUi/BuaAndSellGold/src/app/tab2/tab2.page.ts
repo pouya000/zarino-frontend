@@ -1,4 +1,13 @@
-import {Component, inject, OnInit, ViewChild, CUSTOM_ELEMENTS_SCHEMA, signal, effect} from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  ViewChild,
+  CUSTOM_ELEMENTS_SCHEMA,
+  signal,
+  effect,
+  HostListener
+} from '@angular/core';
 import {
   IonHeader,
   IonToolbar,
@@ -20,7 +29,7 @@ import {
 import {ExploreContainerComponent} from '../explore-container/explore-container.component';
 import {Router} from "@angular/router";
 import {UserService} from "../sevices/user.service";
-import { CommonModule, DecimalPipe } from '@angular/common';
+import {CommonModule, DecimalPipe} from '@angular/common';
 import {environment} from "../../environments/environment";
 import {OverlayEventDetail} from '@ionic/core/components';
 import {goldPrice2} from "../models/goldPrice.interface";
@@ -160,6 +169,32 @@ export class Tab2Page implements OnInit {
   //
   //   // this.wsService.sendStoreStatus(this.sellerId,'close');
   // }
+
+  installPrompt: any = null;
+
+  // این تابع به رویداد 'beforeinstallprompt' که توسط مرورگر ارسال می‌شود، گوش می‌دهد
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onBeforeInstallPrompt(event: Event) {
+    // جلوگیری از نمایش خودکار پنجره نصب توسط مرورگر
+    event.preventDefault();
+
+    // رویداد را در متغیر خود ذخیره می‌کنیم تا بعداً از آن استفاده کنیم
+    this.installPrompt = event;
+  }
+
+  // این تابع زمانی که روی دکمه سفارشی ما کلیک شود، اجرا می‌شود
+  installPwa(): void {
+    if (!this.installPrompt) {
+      console.log("i am in installPrompt")
+      return;
+    }
+
+    // پنجره نصب مرورگر را به کاربر نمایش می‌دهیم
+    this.installPrompt.prompt();
+
+    // پس از نمایش، متغیر را خالی می‌کنیم چون این رویداد فقط یک بار قابل استفاده است
+    this.installPrompt = null;
+  }
 
   ngOnInit() {
     console.log("i am in tab 2 init ")
