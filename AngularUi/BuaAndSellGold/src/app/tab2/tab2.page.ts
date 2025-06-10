@@ -174,31 +174,30 @@ export class Tab2Page implements OnInit {
 
   // این تابع به رویداد 'beforeinstallprompt' که توسط مرورگر ارسال می‌شود، گوش می‌دهد
   @HostListener('window:beforeinstallprompt', ['$event'])
-  onBeforeInstallPrompt(event: Event) {
-    // جلوگیری از نمایش خودکار پنجره نصب توسط مرورگر
-    event.preventDefault();
 
-    // رویداد را در متغیر خود ذخیره می‌کنیم تا بعداً از آن استفاده کنیم
+  onBeforeInstallPrompt(event: Event) {
+    // Prevent the default mini-infobar from appearing on mobile
+    event.preventDefault();
+    // Stash the event so it can be triggered later.
     this.installPrompt = event;
+    console.log("✅ beforeinstallprompt event fired. Prompt is now available.", this.installPrompt);
   }
 
-
-  // این تابع زمانی که روی دکمه سفارشی ما کلیک شود، اجرا می‌شود
-  installPwa(): void {
+  async installPwa() {
     if (!this.installPrompt) {
-      console.log("i am in installPrompt")
+      console.log("Install prompt is not available.");
       return;
     }
-
-    // پنجره نصب مرورگر را به کاربر نمایش می‌دهیم
-    this.installPrompt.prompt();
-
-    // پس از نمایش، متغیر را خالی می‌کنیم چون این رویداد فقط یک بار قابل استفاده است
+    const result = await this.installPrompt.prompt();
+    console.log(`Install prompt result: ${result.outcome}`);
+    // The prompt can only be used once. Clear it.
     this.installPrompt = null;
   }
 
   ngOnInit() {
     console.log("i am in tab 2 init ")
+
+    console.log("Component Initialized. Waiting for beforeinstallprompt event...");
 
     this.BASE_URL = this.userservice.GET_BASE_URL_GOLD;
 
