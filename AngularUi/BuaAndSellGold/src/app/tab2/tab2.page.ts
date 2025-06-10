@@ -170,17 +170,17 @@ export class Tab2Page implements OnInit {
   //   // this.wsService.sendStoreStatus(this.sellerId,'close');
   // }
 
-  installPrompt: any ;
+  installPrompt: any = null;
 
   // این تابع به رویداد 'beforeinstallprompt' که توسط مرورگر ارسال می‌شود، گوش می‌دهد
   @HostListener('window:beforeinstallprompt', ['$event'])
-  // onBeforeInstallPrompt(event: Event) {
-  //   // جلوگیری از نمایش خودکار پنجره نصب توسط مرورگر
-  //   event.preventDefault();
-  //
-  //   // رویداد را در متغیر خود ذخیره می‌کنیم تا بعداً از آن استفاده کنیم
-  //   this.installPrompt = event;
-  // }
+  onBeforeInstallPrompt(event: Event) {
+    // جلوگیری از نمایش خودکار پنجره نصب توسط مرورگر
+    event.preventDefault();
+
+    // رویداد را در متغیر خود ذخیره می‌کنیم تا بعداً از آن استفاده کنیم
+    this.installPrompt = event;
+  }
 
   // این تابع زمانی که روی دکمه سفارشی ما کلیک شود، اجرا می‌شود
   installPwa(): void {
