@@ -182,6 +182,7 @@ export class Tab2Page implements OnInit {
     this.installPrompt = event;
   }
 
+
   // این تابع زمانی که روی دکمه سفارشی ما کلیک شود، اجرا می‌شود
   installPwa(): void {
     if (!this.installPrompt) {
